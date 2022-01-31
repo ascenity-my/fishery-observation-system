@@ -19,7 +19,7 @@ function DeviceData(props) {
 	const [lastUpdate, setLastUpdate] = useState('');
 	
 	const requestData = async (id) => {
-		const response = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}:${process.env.REACT_APP_SERVER_PORT}/api/device/data?id=${id}&limit=10`);
+		const response = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data?id=${id}&limit=10`);
 		const data = await response.json();
 
 		if (data && data.length) {

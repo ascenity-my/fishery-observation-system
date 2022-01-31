@@ -56,7 +56,7 @@ function DisplayReport(props) {
 
 	useEffect(() => {
 		(async () => {
-			let request = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}:${process.env.REACT_APP_SERVER_PORT}/api/device/data/average/all`, {
+			let request = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/average/all`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ function DisplayReport(props) {
 				setAverages(response);
 			}
 
-			request = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}:${process.env.REACT_APP_SERVER_PORT}/api/device/data/highest/all`, {
+			request = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/highest/all`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
