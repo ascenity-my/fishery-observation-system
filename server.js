@@ -11,6 +11,7 @@ const app = express();
 
 app.use(cors());
 
+/*  */
 (async () => {
     try {
         /* establish connections to DB and MQTT service */
