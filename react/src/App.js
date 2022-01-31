@@ -46,11 +46,14 @@ function App() {
 
 	const mqttConnect = () => {
 		try {
-			const client = mqtt.connect("ws://localhost:9001");
+			const client = mqtt.connect(`wss://${process.env.REACT_APP_MQTT_HOSTNAME}:${process.env.REACT_APP_MQTT_PORT}`, {
+				username: process.env.REACT_APP_MQTT_USERNAME,
+				password: process.env.REACT_APP_MQTT_PASSWORD,
+			});
 			client.on("connect", () => {
 				console.log("Connected to MQTT broker");
-				client.subscribe("server/state");
-				client.subscribe("test/state");
+				client.subscribe("sasaqua/server/state");
+				client.subscribe("sasaqua/test/state");
 			});
 
 			client.on("message", (topic, message) => {
