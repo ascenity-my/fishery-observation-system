@@ -2,11 +2,9 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const PrettyError = require('pretty-error');
 
 const mqtt = require('./services/mqtt.service.js');
 
-const pe = new PrettyError();
 const app = express();
 
 app.use(cors());
@@ -27,7 +25,7 @@ app.use(cors());
         });
 
     } catch (e) {
-        console.log(pe.render(e));
+        console.log(e);
     }
 
 })();
