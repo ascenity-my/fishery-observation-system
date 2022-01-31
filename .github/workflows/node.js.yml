@@ -38,5 +38,5 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: |
-        run: cd react
-        run: npm ci
+        cd react
+        npm ci
