@@ -42,4 +42,8 @@ jobs:
         cd react
         npm i
         npm run build
-    - run: pm2 start ecosystem.config.js
+    - run: |
+        pm2 stop 1
+        pm2 stop 2
+        pm2 start 1
+        pm2 start 2
