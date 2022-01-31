@@ -1,0 +1,40 @@
+.widget {
+    position: relative;
+
+    height: fit-content;
+    width: 220px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px 0;
+
+    border: 2px solid blue;
+    border-radius: 10px;
+
+    & > .title {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+    }
+
+    & > .data {
+        padding-top: 15px;
+        display: flex;
+        gap: 30px;
+
+        justify-content: center;
+        align-items: center;
+
+        & > .label {
+            color: blue;
+        }
+
+        & > .value {
+            font-size: 30px;
+            font-weight: bold;
+        }
+    }
+}

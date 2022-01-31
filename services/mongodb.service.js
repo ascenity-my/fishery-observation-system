@@ -1,19 +1,16 @@
-// write a function that connect to mongodb and return a promise
-// using mongoose
-
 const mongoose = require('mongoose');
 
-const connect = (url) => {
-  return new Promise((resolve, reject) => {
-    mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-    const db = mongoose.connection;
-    db.on('error', (err) => {
-      reject(err);
+// local mongodb url
+const url = process.env.MONGODB_URL;
+
+// async function for mongodb connection
+const connect = async () => {
+    await mongoose.connect(url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        connectTimeoutMS: 10000,
     });
-    db.once('open', () => {
-      resolve(mongoose.connection);
-    });
-  });
+    console.log('Connected to MongoDB');
 };
 
 module.exports = { connect };

@@ -30,11 +30,12 @@
         .title {
             text-transform: capitalize;
             color: white;
+            font-weight: bold;
         }
     }
 
     .user-action {
-        padding: 0 30px;
+        padding: 0 20px;
 
         display: flex;
         align-items: center;
@@ -43,9 +44,19 @@
         color: white;
 
         .logout {
-            padding: 10px;
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: .9rem;
+            padding: 5px 10px;
             
-            color: white;
+            color: #2961E2;
+            background: white;
+
+            border-radius: 5px;
 
             &:hover {
                 cursor: pointer;

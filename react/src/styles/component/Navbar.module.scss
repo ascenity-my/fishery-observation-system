@@ -65,22 +65,18 @@
 
         margin-top: 30px;
 
-        & > .link {
+        & .link {
             display: flex;
-            gap: 10px;
+            gap: 15px;
 
             align-items: center;
 
-            padding: 12px 30px;
+            padding: 15px 30px;
 
-            & > * > * {
-                color: white !important;
-                text-decoration: none !important;
-            }
+            color: white !important;
+            text-decoration: none !important;
 
-            span {
-                font-size: .8rem;
-            }
+            font-size: 14px;
 
             &.active {
                 background: #ffffff2a;
@@ -90,9 +86,16 @@
             .icon {
                 transition: .1s all;
             }
+            border-left: 5px solid #2179FF00;
+
             &:hover {
+                box-shadow: 0px 0px 10px 5px #2179FFFF;
+                border-left: 5px solid #FFF;
+
                 background: #ffffff2a;
                 cursor: pointer;
+
+                gap: 20px;
                 
                 .icon {
                     transform: scale(1.4);
@@ -100,4 +103,8 @@
             }
         }
     }
+
+    transition: .3s all;
+    box-shadow: 0px 0px 20px 0px #2179FFFF;
+
 }

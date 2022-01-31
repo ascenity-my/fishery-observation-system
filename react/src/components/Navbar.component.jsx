@@ -2,6 +2,8 @@ import * as React from "react";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
 
+import * as ReactIcons from "react-icons/fa";
+
 import styles from "styles/component/Navbar.module.scss";
 
 function CustomLink({ children, to, ...props }: LinkProps) {
@@ -22,6 +24,11 @@ function CustomLink({ children, to, ...props }: LinkProps) {
 }
 
 export default function Navbar({ ...props }) {
+	const Icon = ({ name }) => {
+		const TagName = ReactIcons[name];
+		return !!TagName ? <TagName size={18} /> : <p>{name}</p>;
+	};
+
 	return (
 		<div>
 			<nav className={styles.nav}>
@@ -31,20 +38,19 @@ export default function Navbar({ ...props }) {
                     </div>
                     <div className={styles.text}>
                         <div className={`${styles.title} card-text`}>
-                            Title here
+                            User
                         </div>
                         <div className={`${styles.label} card-text`}>
-                            Location
+                            Researcher
                         </div>
                     </div>
                 </div>
 				<div className={styles.links}>
-					{props.paths.map((path, index) => (
-						<div key={index} className={styles.link}>
-							<CustomLink to={path.path}>
-								{path.name}
-							</CustomLink>
-						</div>
+					{props.paths.map((item, index) => (
+						<CustomLink key={index} to={item.path} className={styles.link}>
+							<Icon name={item.icon}/>
+							{item.name}
+						</CustomLink>
 					))}
 				</div>
 			</nav>

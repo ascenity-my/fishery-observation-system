@@ -8,13 +8,35 @@ import styles from 'styles/layout/Admin.module.scss';
 export default function AdminLayout() {
     const paths = [
         {
-            path: '/settings',
-            name: 'Setting',
+            path: '/admin/accounts',
+            name: 'Accounts',
+            icon: 'FaUserFriends',
         },
-        {  
-            path: '/admin/test',
-            name: 'Test',
-        }
+        {
+            path: '/admin/inventory',
+            name: 'Inventory',
+            icon: 'FaBox',
+        },
+        {
+            path: '/admin/orders',
+            name: 'Orders',
+            icon: 'FaReceipt',
+        },
+        {
+            path: '/admin/vendors',
+            name: 'Vendors',
+            icon: 'FaShoppingBag',
+        },
+        {
+            path: '/admin/report',
+            name: 'Report',
+            icon: 'FaClipboardList',
+        },
+        {
+            path: '/admin/inbox',
+            name: 'Inbox',
+            icon: 'FaInbox',
+        },
     ];
 
     return (
