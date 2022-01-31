@@ -8,7 +8,7 @@ module.exports = {
         },
         {
             name: 'sas-aqua-react',
-            script: 'serve -s react/build',
+            script: 'serve -s react/build -p 60500',
         }
     ]
 }
