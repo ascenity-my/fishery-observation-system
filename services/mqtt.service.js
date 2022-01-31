@@ -10,6 +10,8 @@ const connect = () =>
 			return resolve(client);
         }
         
+		console.log(brokerUrl);
+
 		// connect to broker
 		client = mqtt.connect(brokerUrl, {
             username: process.env.MQTT_USERNAME || 'mqtt',
