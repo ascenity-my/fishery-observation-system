@@ -1,6 +1,6 @@
 const mqtt = require("mqtt");
 // load broker url from env
-const brokerUrl = process.env.MQTT_BROKER_URL;
+const brokerUrl = process.env.MQTT_BROKER_URL || 'mqtts://mqtt.sollab.dev:8883';
 
 let client;
 
@@ -12,8 +12,8 @@ const connect = () =>
         
 		// connect to broker
 		client = mqtt.connect(brokerUrl, {
-            username: process.env.MQTT_USERNAME,
-			password: process.env.MQTT_PASSWORD,
+            username: process.env.MQTT_USERNAME || 'mqtt',
+			password: process.env.MQTT_PASSWORD || 'syafiq29',
 		});
         
 		client.on("connect", () => {

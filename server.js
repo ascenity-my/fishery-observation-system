@@ -9,6 +9,8 @@ const app = express();
 
 app.use(cors());
 
+const port = process.env.PORT || 60000;
+
 /*  */
 (async () => {
     try {
@@ -20,8 +22,8 @@ app.use(cors());
 
         app.use(require('./routes'));
         
-        app.listen(process.env.PORT, () => {
-            console.log(`Server is running on port ${process.env.PORT}`);
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
         });
 
     } catch (e) {
