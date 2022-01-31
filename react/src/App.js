@@ -52,6 +52,9 @@ function App() {
 				username: process.env.REACT_APP_MQTT_USERNAME,
 				password: process.env.REACT_APP_MQTT_PASSWORD,
 			});
+			console.log(`wss://${process.env.REACT_APP_MQTT_HOSTNAME}:${process.env.REACT_APP_MQTT_PORT}`);
+			console.log(`${process.env.REACT_APP_MQTT_USERNAME}`);
+			console.log(`${process.env.REACT_APP_MQTT_PASSWORD}`);
 			client.on("connect", () => {
 				console.log("Connected to MQTT broker");
 				client.subscribe("sasaqua/server/state");
