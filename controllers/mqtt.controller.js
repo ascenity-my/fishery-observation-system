@@ -35,7 +35,7 @@ const parseData = (payload) => {
                         description: data.description,
                     });
     
-                    client.publish('server/state', "NEWDEVICE");
+                    client.publish('sasaqua/server/state', "NEWDEVICE");
                 }
     
                 await Data.create({
@@ -50,7 +50,7 @@ const parseData = (payload) => {
                 });
     
                 // notify the frontend to request for device updates
-                client.publish('server/state', "UPDATE:" + name);
+                client.publish('sasaqua/server/state', "UPDATE:" + name);
             }
     
         } catch(e) {

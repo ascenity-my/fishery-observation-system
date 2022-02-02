@@ -18,13 +18,15 @@ function DisplayReport(props) {
 	const [labels, setLabels] = useState([]);
 
 	const requestLabels = async () => {
-		const response = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/list`);
+		const response = await fetch(
+			`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/list`
+		);
 
 		const data = await response.json();
 
 		const allLabel = data.map((device) => ({
 			label: device.name,
-			id: device._id
+			id: device._id,
 		}));
 
 		setLabels(allLabel);
@@ -37,8 +39,8 @@ function DisplayReport(props) {
 	useEffect(() => {
 		if (!mqtt) return;
 
-		if (mqtt.topic === 'server/state') {
-			if (mqtt.message === 'NEWDEVICE') {
+		if (mqtt.topic === "sasaqua/server/state") {
+			if (mqtt.message === "NEWDEVICE") {
 				requestLabels();
 			}
 		}
@@ -49,7 +51,9 @@ function DisplayReport(props) {
 			<div className={styles.header}>
 				<div className={styles.text}>
 					<div className={styles.title}>Pond devices</div>
-					<div className={styles.subtitle}>Monitor each pond devices in real-time</div>
+					<div className={styles.subtitle}>
+						Monitor each pond devices in real-time
+					</div>
 				</div>
 			</div>
 			<div className={styles.body}>
@@ -64,7 +68,6 @@ function DisplayReport(props) {
 						/>
 					))}
 				</div>
-
 			</div>
 		</div>
 	);

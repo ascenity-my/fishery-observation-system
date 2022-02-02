@@ -55,7 +55,7 @@ function DeviceData(props) {
 	useEffect(() => {
 		if (!props.mqtt) return;
 
-		if (props.mqtt.topic === 'server/state') {
+		if (props.mqtt.topic === 'sasaqua/server/state') {
 			const d = props.mqtt.message.split(':');
 
 			if (d.length > 0) {
