@@ -48,7 +48,7 @@ function App() {
 
 	const mqttConnect = () => {
 		try {
-			const client = mqtt.connect(`wss://${process.env.REACT_APP_MQTT_HOSTNAME}:${process.env.REACT_APP_MQTT_PORT}`, {
+			const client = mqtt.connect(`${process.env.REACT_APP_MQTT_PROTOCOL}://${process.env.REACT_APP_MQTT_HOSTNAME}:${process.env.REACT_APP_MQTT_PORT}`, {
 				username: process.env.REACT_APP_MQTT_USERNAME,
 				password: process.env.REACT_APP_MQTT_PASSWORD,
 			});
