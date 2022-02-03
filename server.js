@@ -7,7 +7,9 @@ const mqtt = require('./services/mqtt.service.js');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: true,
+}));
 
 const port = process.env.PORT || 60000;
 
