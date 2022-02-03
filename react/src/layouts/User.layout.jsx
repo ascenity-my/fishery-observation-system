@@ -6,7 +6,7 @@ import Navbar from "components/Navbar.component";
 import Topbar from "components/Topbar.component";
 import { useEffect, useState } from "react";
 
-import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { Link, useMatch, useResolvedPath, useLocation } from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
 
 import * as ReactIcons from "react-icons/fa";
@@ -29,7 +29,10 @@ function CustomLink({ children, to, ...props }: LinkProps) {
 }
 
 export default function UserLayout(props) {
+	const location = useLocation();
+
 	const [mqtt, setMqtt] = useState(null);
+	const [activeLink, setActiveLink] = useState(null);
 
     const Icon = ({ name }) => {
 		const TagName = ReactIcons[name];
@@ -65,6 +68,10 @@ export default function UserLayout(props) {
 		setMqtt(props.mqtt);
 	}, [props.mqtt]);
 
+	useEffect(() => {
+		setActiveLink(location.pathname);
+	}, [location]);
+
 	return (
 		<div>
 			<div className={styles.topbar}>
@@ -75,8 +82,8 @@ export default function UserLayout(props) {
 			</div>
             <div className={styles.botnavbar}>
                 {paths.map((item, index) => (
-                    <div key={index} className={styles.item}>
-                        <CustomLink key={index} to={item.path} className={styles.link}>
+                    <div key={index} className={`${styles.item} ${(activeLink === item.path) && styles.active}`}>
+                        <CustomLink key={index} to={item.path} className={`${styles.link}`}>
                             <Icon name={item.icon}/>
                         </CustomLink>
                     </div>

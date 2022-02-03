@@ -209,7 +209,7 @@ function SimpleLineChart(props) {
 	}, [props.field]);
 
 	return (
-		<div className={styles.container} style={{ border: "2px solid #2179FFFF", height: "fit-content" }}>
+		<div className={styles.container} style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)", height: "fit-content" }}>
 			<div
 				id={props.label}
 				style={{ width: "100%", height: `${props.height}` }}

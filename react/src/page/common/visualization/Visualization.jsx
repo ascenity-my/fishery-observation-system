@@ -125,9 +125,9 @@ function DisplayReport(props) {
 						icon="FaLevelUpAlt"
 					/>
 				</StatWrapper>
-				{/* <div className={exStyles.avrTable}>
+				<div className={exStyles.avrTable}>
 					<div className={exStyles.header}>
-						<div className={exStyles.title}>Device name</div>
+						<div className={exStyles.title}>Name</div>
 						<div className={exStyles.title}>pH</div>
 						<div className={exStyles.title}>DO</div>
 						<div className={exStyles.title}>Temp</div>
@@ -149,7 +149,7 @@ function DisplayReport(props) {
 								</div>
 							))}
 					</div>
-				</div> */}
+				</div>
 				<div className={exStyles.averages}>
 					<div className={exStyles.item}>
 						<div className={exStyles.title}>Average pH</div>
