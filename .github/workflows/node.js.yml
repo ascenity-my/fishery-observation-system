@@ -11,7 +11,7 @@ on:
 env:
   PORT: 60000
   MQTT_PROTOCOL: mqtts
-  MQTT_BROKER_URL: mqtt.sollab.dev:8883
+  MQTT_URL: mqtt.sollab.dev:8883
   MQTT_USERNAME: mqtt
   MQTT_PASSWORD: syafiq29
   MONGODB_URL: mongodb://admin:syafiq29_sollab@sollab.dev:27017/sasaqua?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false

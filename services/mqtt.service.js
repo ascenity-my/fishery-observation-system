@@ -1,7 +1,7 @@
 const mqtt = require("mqtt");
 // load broker url from env
 const protocol = process.env.MQTT_PROTOCOL || "mqtts";
-const brokerUrl = process.env.MQTT_BROKER_URL || 'mqtt.sollab.dev:8883';
+const brokerUrl = process.env.MQTT_URL || 'mqtt.sollab.dev:8883';
 
 let client;
 
