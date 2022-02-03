@@ -1,12 +1,4 @@
-.container {
-    margin-left: 200px;
-    
-    height: 75px;
-    width: calc(100% - 200px);
 
-    display: flex;
-    align-items: center;
-}
 
 .bar {
     width: calc(100% - 30px);
@@ -35,6 +27,9 @@
     }
 
     .user-action {
+        /* TODO: Logout */
+        display: none !important;
+
         padding: 0 20px;
 
         display: flex;
@@ -77,5 +72,11 @@
                 transform: scale(1.1)
             }
         }
+    }
+}
+
+@media screen and (max-width: 757px) {
+    .title {
+        font-size: 12px;
     }
 }

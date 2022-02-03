@@ -6,20 +6,23 @@ import { useEffect, useState, useRef } from "react";
 import styles from "styles/component/DeviceData.module.scss";
 
 import SimpleLineChart from "components/SimpleLineChart";
+import StatWrapper from "components/StatWrapper.component";
+import StatNumber from "components/StatNumber.component";
 
 function DeviceData(props) {
-
-	const [name, setName] = useState('');
-	const [uid, setUID] = useState('');
+	const [name, setName] = useState("");
+	const [uid, setUID] = useState("");
 
 	const [tds, setTds] = useState([]);
 	const [oxy, setOxy] = useState([]);
 	const [ph, setPh] = useState([]);
 	const [temp, setTemp] = useState([]);
-	const [lastUpdate, setLastUpdate] = useState('');
-	
+	const [lastUpdate, setLastUpdate] = useState("");
+
 	const requestData = async (id) => {
-		const response = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data?id=${id}&limit=10`);
+		const response = await fetch(
+			`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data?id=${id}&limit=10`
+		);
 		const data = await response.json();
 
 		if (data && data.length) {
@@ -39,7 +42,7 @@ function DeviceData(props) {
 				date: new Date(d.timestamp).getTime(),
 				value: d.values.temp,
 			}));
-			
+
 			// setLastUpdate to dd/mm/yyyy hh:mm:ss
 			const l = new Date(data[0].timestamp).toLocaleString();
 
@@ -49,27 +52,22 @@ function DeviceData(props) {
 			setTemp(tempData);
 			setLastUpdate(l);
 		}
-
 	};
 
 	useEffect(() => {
 		if (!props.mqtt) return;
 
-		if (props.mqtt.topic === 'sasaqua/server/state') {
-			const d = props.mqtt.message.split(':');
+		if (props.mqtt.topic === "sasaqua/server/state") {
+			const d = props.mqtt.message.split(":");
 
 			if (d.length > 0) {
-				if (d[0] === 'UPDATE' && d[1] === name) {
+				if (d[0] === "UPDATE" && d[1] === name) {
 					requestData(uid);
 				}
-
 			}
-
 		}
-
 	}, [props.mqtt]);
 
-	
 	useEffect(() => {
 		if (!props.name) return;
 		if (!props.uid) return;
@@ -79,7 +77,6 @@ function DeviceData(props) {
 
 		requestData(props.uid);
 	}, [props.name, props.uid]);
-
 
 	return (
 		<div className={styles.container}>
@@ -94,7 +91,9 @@ function DeviceData(props) {
 					<div className={styles.chart}>
 						<div className={styles.label}>
 							<div className={styles.name}>pH</div>
-							<div className={styles.value}>{(ph.length) && ph[0].value}</div>
+							<div className={styles.value}>
+								{ph.length && ph[0].value}
+							</div>
 						</div>
 						<SimpleLineChart
 							data={ph}
@@ -106,7 +105,9 @@ function DeviceData(props) {
 					<div className={styles.chart}>
 						<div className={styles.label}>
 							<div className={styles.name}>DO</div>
-							<div className={styles.value}>{(oxy.length) && oxy[0].value}</div>
+							<div className={styles.value}>
+								{oxy.length && oxy[0].value}
+							</div>
 						</div>
 						<SimpleLineChart
 							data={oxy}
@@ -118,7 +119,9 @@ function DeviceData(props) {
 					<div className={styles.chart}>
 						<div className={styles.label}>
 							<div className={styles.name}>Temperature</div>
-							<div className={styles.value}>{(temp.length) && temp[0].value}</div>
+							<div className={styles.value}>
+								{temp.length && temp[0].value}
+							</div>
 						</div>
 						<SimpleLineChart
 							data={temp}
@@ -130,7 +133,9 @@ function DeviceData(props) {
 					<div className={styles.chart}>
 						<div className={styles.label}>
 							<div className={styles.name}>Turbidity</div>
-							<div className={styles.value}>{(tds.length) && tds[0].value}</div>
+							<div className={styles.value}>
+								{tds.length && tds[0].value}
+							</div>
 						</div>
 						<SimpleLineChart
 							data={tds}
@@ -139,15 +144,64 @@ function DeviceData(props) {
 							height={props.chartHeight}
 						/>
 					</div>
+				</div>
 
+				<div className={styles.number}>
+					{/* <div className={styles.item}>
+						<div className={styles.label}>ph</div>
+						<div className={styles.value}>
+							{ph.length && ph[0].value}
+						</div>
+					</div>
+					<div className={styles.item}>
+						<div className={styles.label}>DO</div>
+						<div className={styles.value}>
+							{oxy.length && oxy[0].value}
+						</div>
+					</div>
+					<div className={styles.item}>
+						<div className={styles.label}>Temp</div>
+						<div className={styles.value}>
+							{temp.length && temp[0].value}
+						</div>
+					</div>
+					<div className={styles.item}>
+						<div className={styles.label}>TDS</div>
+						<div className={styles.value}>
+							{tds.length && tds[0].value}
+						</div>
+					</div> */}
+					<StatNumber
+						title="pH"
+						value={ph.length && ph[0].value}
+						unit='pH'
+						icon="BsDropletHalf"
+						from="Bs"
+					/>
+					<StatNumber
+						title="Dissolved Oxygen"
+						value={oxy.length && oxy[0].value}
+						unit='mg/L'
+						icon="SiOxygen"
+						from="Si"
+					/>
+					<StatNumber
+						title="Temperature"
+						value={temp.length && temp[0].value}
+						unit='°C'
+						icon="FaTemperatureLow"
+					/>
+					<StatNumber
+						title="Total Dissolved Solids"
+						value={tds.length && tds[0].value}
+						unit='ppm'
+						icon="SiWeightsandbiases"
+						from="Si"
+					/>
 				</div>
 				<div className={styles.lastUpdate}>
-					<div className={styles.label}>
-						Last updated at
-					</div>
-					<div className={styles.value}>
-						{lastUpdate}
-					</div>	
+					<div className={styles.label}>Last updated at</div>
+					<div className={styles.value}>{lastUpdate}</div>
 				</div>
 			</div>
 		</div>

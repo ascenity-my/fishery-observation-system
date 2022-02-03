@@ -17,3 +17,17 @@
 	flex-direction: column;
 	gap: 50px;
 }
+
+@media screen and (max-width: 757px) {
+    .header {
+        margin-bottom: 2rem;
+    }
+
+    .title {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+    .subtitle {
+        font-size: .9rem !important;
+    }
+}

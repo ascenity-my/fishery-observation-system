@@ -45,7 +45,7 @@
     padding: 30px;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 
@@ -60,7 +60,9 @@
         gap: 30px;
 
         .chart {
-            flex: 1 1 40%;
+            flex: 1 0 40%;
+
+            min-width: 200px;
 
             .label {
                 display: flex;
@@ -106,5 +108,49 @@
             font-size: 18px;
             font-weight: bold;
         }
+    }
+}
+
+.number {
+    display: none;
+
+    flex: 1 1 100%;
+
+    flex-wrap: wrap;
+    gap: 30px;
+
+    align-items: center;
+    justify-content: center;
+
+    .item {
+        flex: 1 1 120px;
+        display: flex;
+
+        gap: 10px;
+
+        align-items: center;
+        justify-content: space-between;
+
+        .value {
+            font-size: 2rem;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #2179FF;
+            font-size: .9rem;
+        }
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .body > .charts {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .number {
+        display: flex;
     }
 }

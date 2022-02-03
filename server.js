@@ -14,8 +14,10 @@ const port = process.env.PORT || 60000;
 /*  */
 (async () => {
     try {
-        /* establish connections to DB and MQTT service */
+        console.log('Connecting to MongoDB...');
         await require('./services/mongodb.service.js').connect();
+        
+        console.log('Connecting to MQTT broker...');
         await require('./services/mqtt.service').connect();
     
         require('./controllers/mqtt.controller');

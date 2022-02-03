@@ -20,7 +20,7 @@
 			font-size: 1rem;
 			font-weight: 500;
 			color: rgb(85, 85, 85);
-			text-transform: capitalize;
+			/* text-transform: capitalize; */
 		}
 	}
 
@@ -68,6 +68,16 @@
 
 			/* no break word */
 			white-space: nowrap;
+		}
+	}
+}
+
+@media screen and (max-width: 530px) {
+	.stat {
+		flex: 0 0 200px;
+
+		.body {
+			padding-left: 0;
 		}
 	}
 }

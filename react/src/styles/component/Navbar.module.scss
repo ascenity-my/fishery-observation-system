@@ -1,13 +1,14 @@
 .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
 
-    height: 100vh;
+    height: 100%;
     width: 200px;
 
     background: linear-gradient(0deg, #2179FFFF 0%, #297FE2FF 100%);
     color: white;
+
+    transition: .3s all;
+
+    padding-top: 20px;
 
     & > .title-card {
         width: 80%;
@@ -16,7 +17,7 @@
         padding: 10px;
 
         margin: 0 auto;
-        margin-top: 20px;
+       /*  margin-top: 20px; */
 
         background: #ffffff2a;
 
@@ -107,4 +108,10 @@
     transition: .3s all;
     box-shadow: 0px 0px 20px 0px #2179FFFF;
 
+}
+
+@media screen and (max-width: 757px) {
+    .nav {
+        box-shadow: 0px 0px 20px 0px #2179FF00;
+    }
 }
