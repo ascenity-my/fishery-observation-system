@@ -17,6 +17,7 @@ function DeviceData(props) {
 	const [oxy, setOxy] = useState([]);
 	const [ph, setPh] = useState([]);
 	const [temp, setTemp] = useState([]);
+	const [sal, setSal] = useState([]);
 	const [lastUpdate, setLastUpdate] = useState("");
 
 	const requestData = async (id) => {
@@ -42,6 +43,10 @@ function DeviceData(props) {
 				date: new Date(d.timestamp).getTime(),
 				value: d.values.temp,
 			}));
+			const salData = data.map(d => ({
+				date: new Date(d.timestamp).getTime(),
+				value: d.values.sal,
+			}));
 
 			// setLastUpdate to dd/mm/yyyy hh:mm:ss
 			const l = new Date(data[0].timestamp).toLocaleString();
@@ -50,6 +55,7 @@ function DeviceData(props) {
 			setOxy(oxyData);
 			setPh(phData);
 			setTemp(tempData);
+			setSal(salData);
 			setLastUpdate(l);
 		}
 	};
@@ -144,33 +150,23 @@ function DeviceData(props) {
 							height={props.chartHeight}
 						/>
 					</div>
+					<div className={styles.chart}>
+						<div className={styles.label}>
+							<div className={styles.name}>Salinity</div>
+							<div className={styles.value}>
+								{sal.length && sal[0].value}
+							</div>
+						</div>
+						<SimpleLineChart
+							data={sal}
+							/* unique label string generate */
+							label={`${Date.now()}${Math.random()}`}
+							height={props.chartHeight}
+						/>
+					</div>
 				</div>
 
 				<div className={styles.number}>
-					{/* <div className={styles.item}>
-						<div className={styles.label}>ph</div>
-						<div className={styles.value}>
-							{ph.length && ph[0].value}
-						</div>
-					</div>
-					<div className={styles.item}>
-						<div className={styles.label}>DO</div>
-						<div className={styles.value}>
-							{oxy.length && oxy[0].value}
-						</div>
-					</div>
-					<div className={styles.item}>
-						<div className={styles.label}>Temp</div>
-						<div className={styles.value}>
-							{temp.length && temp[0].value}
-						</div>
-					</div>
-					<div className={styles.item}>
-						<div className={styles.label}>TDS</div>
-						<div className={styles.value}>
-							{tds.length && tds[0].value}
-						</div>
-					</div> */}
 					<StatNumber
 						title="pH"
 						value={ph.length && ph[0].value}
@@ -197,6 +193,13 @@ function DeviceData(props) {
 						unit='ppm'
 						icon="SiWeightsandbiases"
 						from="Si"
+					/>
+					<StatNumber
+						title="Salinity"
+						value={sal.length && sal[0].value}
+						unit='psu'
+						icon="BiWater"
+						from="Bi"
 					/>
 				</div>
 				<div className={styles.lastUpdate}>

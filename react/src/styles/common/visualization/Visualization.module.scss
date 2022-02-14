@@ -50,10 +50,10 @@
 
 		padding: 12px 20px;
 
-		border-bottom: 2px solid rgba(136, 136, 136, 0.185);
+		/* border-bottom: 2px solid rgba(136, 136, 136, 0.185); */
 
 		& > div:nth-child(1) {
-			flex: 1 1 40%;
+			flex: 1 0 30%;
 			text-align: left;
 		}
 		& > div:nth-child(2) {
@@ -69,6 +69,9 @@
 			flex: 0 0 80px;
 		}
 		& > div:nth-child(6) {
+			flex: 0 0 80px;
+		}
+		& > div:nth-child(7) {
 			flex: 0 0 100px;
 		}
 	}
@@ -83,8 +86,6 @@
         min-width: 550px;
         max-height: 300px;
 
-        overflow-y: auto;
-
 		.dataRow {
 			display: flex;
 
@@ -96,10 +97,13 @@
 
 			& > div {
 				text-align: center;
+
+				font-size: .8rem;
+
 			}
 
 			& > div:nth-child(1) {
-				flex: 1 1 40%;
+				flex: 1 0 30%;
 				text-align: left;
 			}
 			& > div:nth-child(2) {
@@ -115,6 +119,9 @@
 				flex: 0 0 80px;
 			}
 			& > div:nth-child(6) {
+				flex: 0 0 80px;
+			}
+			& > div:nth-child(7) {
 				flex: 0 0 100px;
 			}
 		}

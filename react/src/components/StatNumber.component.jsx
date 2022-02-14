@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import * as ReactIcons from "react-icons/fa";
 import * as ReactIconsSi from "react-icons/si";
 import * as ReactIconsBs from "react-icons/bs";
+import * as ReactIconsBi from "react-icons/bi";
 import "animate.css";
 
 import styles from "styles/component/StatNumber.module.scss";
@@ -23,6 +24,9 @@ function StatNumber(props) {
             }
             if (from === "Bs") {
                 TagName = ReactIconsBs[name];
+            }
+            if (from === "Bi") {
+                TagName = ReactIconsBi[name];
             }
         } else {
             TagName = ReactIcons[name];

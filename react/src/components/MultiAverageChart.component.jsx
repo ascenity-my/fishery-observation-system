@@ -62,21 +62,6 @@ function SimpleLineChart(props) {
 		return series;
 	}
 
-	const generateDummyData = () => {
-		const data = [];
-
-		for (let i = 0; i < 10; i++) {
-			data.push({
-				date: new Date(2020, 0, i + 1).getTime(),
-				value: Math.random() * 100,
-				value2: Math.random() * 100,
-				value3: Math.random() * 100,
-			});
-		}
-
-		return data;
-	};
-
 	useLayoutEffect(() => {
 		let root = am5.Root.new(props.label);
 
@@ -143,27 +128,6 @@ function SimpleLineChart(props) {
 		};
 	}, []);
 
-	/* useEffect(() => {
-		if (!props.series) return;
-
-		if (props.series.length > 0) {
-			if (!legend.current) {
-				for (let x = 0; x < props.series.length; x++) {
-					let s = props.series[x];
-					let series = createSeries(s.name, s.field);
-
-					setSeriesList([...seriesList, series]);
-					series.data.setAll(generateDummyData());
-				}
-
-				legend.current = mainChart.current.children.push(
-					am5.Legend.new(mainRoot.current, {})
-				);
-				legend.current.data.setAll(mainChart.current.series.values);
-			}
-		}
-	}, [props.series]); */
-
 	useEffect(() => {
 		if (!props.field) return;
 
@@ -191,6 +155,7 @@ function SimpleLineChart(props) {
 					setSeriesList([...seriesList, series]);
 					series.data.setAll(response[x].data.map(d => {
 						d.date = new Date(d.date).getTime();
+						console.log(d);
 
 						return d;
 					}));

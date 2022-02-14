@@ -7,6 +7,7 @@ const DataSchema = new Schema({
         oxy: Number,
         ph: Number,
         temp: Number,
+        sal: Number,
     },
     timestamp: Date,
 });
@@ -40,16 +41,18 @@ DataSchema.statics.getAverage = async function (device_id, start, end) {
     const oxy = data.map(d => d.values.oxy);
     const ph = data.map(d => d.values.ph);
     const temp = data.map(d => d.values.temp);
+    const sal = data.map(d => d.values.sal);
     
     const tds_avg = tds.reduce((a, b) => a + b, 0) / tds.length;
     const oxy_avg = oxy.reduce((a, b) => a + b, 0) / oxy.length;
     const ph_avg = ph.reduce((a, b) => a + b, 0) / ph.length;
     const temp_avg = temp.reduce((a, b) => a + b, 0) / temp.length;
+    const sal_avg = sal.reduce((a, b) => a + b, 0) / sal.length;
 
     return {
         date: data[0].timestamp,
         value: {
-            tds: tds_avg, oxy: oxy_avg, ph: ph_avg, temp: temp_avg
+            tds: tds_avg, oxy: oxy_avg, ph: ph_avg, temp: temp_avg, sal: sal_avg,
         }
     };
 };
@@ -93,11 +96,13 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
     const oxy = data.map(d => d.values.map(v => v.oxy));
     const ph = data.map(d => d.values.map(v => v.ph));
     const temp = data.map(d => d.values.map(v => v.temp));
+    const sal = data.map(d => d.values.map(v => v.sal));
 
     const tds_avg = tds.map(d => d.reduce((a, b) => a + b, 0) / d.length);
     const oxy_avg = oxy.map(d => d.reduce((a, b) => a + b, 0) / d.length);
     const ph_avg = ph.map(d => d.reduce((a, b) => a + b, 0) / d.length);
     const temp_avg = temp.map(d => d.reduce((a, b) => a + b, 0) / d.length);
+    const sal_avg = sal.map(d => d.reduce((a, b) => a + b, 0) / d.length);
 
     const averages = [];
     for (let i = 0; i < tds_avg.length; i++) {
@@ -109,6 +114,7 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
             oxy: oxy_avg[i],
             ph: ph_avg[i],
             temp: temp_avg[i],
+            sal: sal_avg[i],
             count: data[i].values.length,
         });
     }
@@ -127,11 +133,13 @@ DataSchema.statics.getOverallAverages = async function (device_id) {
     const oxy = data.map(d => d.values.oxy);
     const ph = data.map(d => d.values.ph);
     const temp = data.map(d => d.values.temp);
+    const sal = data.map(d => d.values.sal);
 
     const tds_avg = tds.reduce((a, b) => a + b, 0) / tds.length;
     const oxy_avg = oxy.reduce((a, b) => a + b, 0) / oxy.length;
     const ph_avg = ph.reduce((a, b) => a + b, 0) / ph.length;
     const temp_avg = temp.reduce((a, b) => a + b, 0) / temp.length;
+    const sal_avg = sal.reduce((a, b) => a + b, 0) / sal.length;
 
     return {
         tds: {
@@ -145,6 +153,9 @@ DataSchema.statics.getOverallAverages = async function (device_id) {
         },
         temp: {
             value: temp_avg,
+        },
+        sal: {
+            value: sal_avg,
         },
         count: data.length,
     };
@@ -161,17 +172,20 @@ DataSchema.statics.getHighest = async function (device_id) {
     const oxy = data.map(d => d.values.oxy);
     const ph = data.map(d => d.values.ph);
     const temp = data.map(d => d.values.temp);
+    const sal = data.map(d => d.values.sal);
 
     const tds_max = Math.max(...tds);
     const oxy_max = Math.max(...oxy);
     const ph_max = Math.max(...ph);
     const temp_max = Math.max(...temp);
+    const sal_max = Math.max(...sal);
 
     return {
         tds: tds_max,
         oxy: oxy_max,
         ph: ph_max,
         temp: temp_max,
+        sal: sal_max,
     };
 }
 

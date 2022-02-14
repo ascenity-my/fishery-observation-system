@@ -20,61 +20,70 @@ function DisplayReport(props) {
 	const [highest, setHighest] = useState({
 		oxy: {
 			value: 0,
-			device_name: ''
+			device_name: "",
 		},
 		ph: {
 			value: 0,
-			device_name: ''
+			device_name: "",
 		},
 		temp: {
 			value: 0,
-			device_name: ''
-
+			device_name: "",
 		},
 		tds: {
 			value: 0,
-			device_name: ''
-		}
+			device_name: "",
+		},
+		sal: {
+			value: 0,
+			device_name: "",
+		},
 	});
-
-	const generateDummyData = () => {
-		const data = [];
-
-		for (let i = 0; i < 10; i++) {
-			data.push({
-				date: new Date(2020, 0, i + 1).getTime(),
-				value: Math.random() * 100,
-				value2: Math.random() * 100,
-				value3: Math.random() * 100,
-			});
-		}
-
-		console.log(data);
-
-		return data;
-	};
 
 	useEffect(() => {
 		(async () => {
-			let request = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/average/all`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+			let request = await fetch(
+				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/average/all`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
 
 			if (request.status === 200) {
 				const response = await request.json();
 
-				setAverages(response);
+				// replace null values with -, round to 2 decimal places
+				const a = response.map((d) => {
+					const { tds, oxy, ph, temp, sal, count } = d.data;
+
+					return {
+						...d,
+						data: {
+							count,
+							tds: tds.value ? tds.value.toFixed(2) : "-",
+							oxy: oxy.value ? oxy.value.toFixed(2) : "-",
+							ph: ph.value ? ph.value.toFixed(2) : "-",
+							temp: temp.value ? temp.value.toFixed(2) : "-",
+							sal: sal.value ? sal.value.toFixed(2) : "-",
+						},
+					};
+				});
+
+				setAverages(a);
 			}
 
-			request = await fetch(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/highest/all`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+			request = await fetch(
+				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/highest/all`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
 
 			if (request.status === 200) {
 				const response = await request.json();
@@ -95,7 +104,6 @@ function DisplayReport(props) {
 				</div>
 			</div>
 			<div className={exStyles.body}>
-
 				<StatWrapper>
 					<StatNumber
 						title="Highest pH"
@@ -124,6 +132,12 @@ function DisplayReport(props) {
 						unit={highest.tds.device_name || 0}
 						icon="FaLevelUpAlt"
 					/>
+					<StatNumber
+						title="Highest Salinity"
+						value={highest.sal.value || 0}
+						unit={highest.sal.device_name || 0}
+						icon="FaLevelUpAlt"
+					/>
 				</StatWrapper>
 				<div className={exStyles.avrTable}>
 					<div className={exStyles.header}>
@@ -132,22 +146,35 @@ function DisplayReport(props) {
 						<div className={exStyles.title}>DO</div>
 						<div className={exStyles.title}>Temp</div>
 						<div className={exStyles.title}>Turbidity</div>
+						<div className={exStyles.title}>Salinity</div>
 						<div className={exStyles.title}>Data count</div>
 					</div>
 					<div className={exStyles.data}>
-						{averages
-							.map((_, i) => (
-								<div key={i} className={exStyles.dataRow}>
-									<div className={exStyles.dataCell}>
-										{_.device_name}
-									</div>
-									<div className={exStyles.dataCell}>{_.data.ph.value.toFixed(2)}</div>
-									<div className={exStyles.dataCell}>{_.data.oxy.value.toFixed(2)}</div>
-									<div className={exStyles.dataCell}>{_.data.temp.value.toFixed(2)}</div>
-									<div className={exStyles.dataCell}>{_.data.tds.value.toFixed(2)}</div>
-									<div className={exStyles.dataCell}>{_.data.count}</div>
+						{averages.map((_, i) => (
+							<div key={i} className={exStyles.dataRow}>
+								<div className={exStyles.dataCell}>
+									{_.device_name}
 								</div>
-							))}
+								<div className={exStyles.dataCell}>
+									{_.data.ph}
+								</div>
+								<div className={exStyles.dataCell}>
+									{_.data.oxy}
+								</div>
+								<div className={exStyles.dataCell}>
+									{_.data.temp}
+								</div>
+								<div className={exStyles.dataCell}>
+									{_.data.tds}
+								</div>
+								<div className={exStyles.dataCell}>
+									{_.data.sal}
+								</div>
+								<div className={exStyles.dataCell}>
+									{_.data.count}
+								</div>
+							</div>
+						))}
 					</div>
 				</div>
 				<div className={exStyles.averages}>
@@ -155,20 +182,6 @@ function DisplayReport(props) {
 						<div className={exStyles.title}>Average pH</div>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
-								series={[
-									{
-										name: "Pond #1",
-										field: "value",
-									},
-									{
-										name: "Pond #2",
-										field: "value2",
-									},
-									{
-										name: "Pond #3",
-										field: "value3",
-									},
-								]}
 								label="averagePH"
 								height="300px"
 								field="ph"
@@ -179,20 +192,6 @@ function DisplayReport(props) {
 						<div className={exStyles.title}>Average DO</div>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
-								series={[
-									{
-										name: "Pond #1",
-										field: "value",
-									},
-									{
-										name: "Pond #2",
-										field: "value2",
-									},
-									{
-										name: "Pond #3",
-										field: "value3",
-									},
-								]}
 								label="averageDO"
 								height="300px"
 								field="oxy"
@@ -205,20 +204,6 @@ function DisplayReport(props) {
 						</div>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
-								series={[
-									{
-										name: "Pond #1",
-										field: "value",
-									},
-									{
-										name: "Pond #2",
-										field: "value2",
-									},
-									{
-										name: "Pond #3",
-										field: "value3",
-									},
-								]}
 								label="averageTemp"
 								height="300px"
 								field="temp"
@@ -229,23 +214,19 @@ function DisplayReport(props) {
 						<div className={exStyles.title}>Average Turbidity</div>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
-								series={[
-									{
-										name: "Pond #1",
-										field: "value",
-									},
-									{
-										name: "Pond #2",
-										field: "value2",
-									},
-									{
-										name: "Pond #3",
-										field: "value3",
-									},
-								]}
 								label="averageTDS"
 								height="300px"
 								field="tds"
+							/>
+						</div>
+					</div>
+					<div className={exStyles.item}>
+						<div className={exStyles.title}>Average Salinity</div>
+						<div className={exStyles.chart}>
+							<MultiAverageChart
+								label="averageSal"
+								height="300px"
+								field="sal"
 							/>
 						</div>
 					</div>
