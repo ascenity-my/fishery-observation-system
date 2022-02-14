@@ -45,7 +45,7 @@ const parseData = (payload) => {
                         oxy: data.oxy,
                         ph: data.ph,
                         temp: data.temp,
-                        sal: data.sal,
+                        sal: (data.sal || data.salinity) || null,
                     },
                     timestamp: Date.now(),
                 });
