@@ -129,11 +129,11 @@ DataSchema.statics.getOverallAverages = async function (device_id) {
         return [];
     }
 
-    const tds = data.map(d => d.values.tds);
-    const oxy = data.map(d => d.values.oxy);
-    const ph = data.map(d => d.values.ph);
-    const temp = data.map(d => d.values.temp);
-    const sal = data.map(d => d.values.sal);
+    const tds = data.map(d => d.values.tds ? d.values.tds : 0);
+    const oxy = data.map(d => d.values.oxy ? d.values.oxy : 0);
+    const ph = data.map(d => d.values.ph ? d.values.ph : 0);
+    const temp = data.map(d => d.values.temp ? d.values.temp : 0);
+    const sal = data.map(d => d.values.sal ? d.values.sal : 0);
 
     const tds_avg = tds.reduce((a, b) => a + b, 0) / tds.length;
     const oxy_avg = oxy.reduce((a, b) => a + b, 0) / oxy.length;
