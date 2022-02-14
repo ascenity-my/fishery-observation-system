@@ -86,7 +86,7 @@ function SimpleLineChart(props) {
 		// Create X-Axis
 		let xAxis = chart.xAxes.push(
 			am5xy.DateAxis.new(root, {
-				baseInterval: { timeUnit: "day", count: 1 },
+				baseInterval: { timeUnit: "hour", count: 1 },
 				renderer: am5xy.AxisRendererX.new(root, {}),
 			})
 		);
