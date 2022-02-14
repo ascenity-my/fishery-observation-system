@@ -197,7 +197,7 @@ function DeviceData(props) {
 					<StatNumber
 						title="Salinity"
 						value={sal.length && sal[0].value}
-						unit='psu'
+						unit='ppt'
 						icon="BiWater"
 						from="Bi"
 					/>

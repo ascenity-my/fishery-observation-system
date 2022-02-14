@@ -92,7 +92,7 @@ function SimpleLineChart(props) {
 		);
 
 		xAxis.get("dateFormats")["second"] = "HH:mm";
-		xAxis.get("periodChangeDateFormats")["day"] = "MMMM";
+		xAxis.get("periodChangeDateFormats")["hour"] = "HH:mm";
 
 
 		// Add cursor
@@ -155,7 +155,6 @@ function SimpleLineChart(props) {
 					setSeriesList([...seriesList, series]);
 					series.data.setAll(response[x].data.map(d => {
 						d.date = new Date(d.date).getTime();
-						console.log(d);
 
 						return d;
 					}));
