@@ -106,7 +106,7 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
 
     const averages = [];
     for (let i = 0; i < tds_avg.length; i++) {
-        const date = new Date(data[i]._id.year, data[i]._id.month, data[i]._id.day, data[i]._id.hour);
+        const date = new Date(data[i]._id.year, data[i]._id.month - 1, data[i]._id.day, data[i]._id.hour);
 
         averages.push({
             date: date,
