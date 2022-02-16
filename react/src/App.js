@@ -47,7 +47,7 @@ function App() {
 	const [mqttData, setMqttData] = useState(null);
 
 	const routes = [
-		{
+		/* {
             path: '/user/home',
             name: 'Home',
             icon: 'FaHome'
@@ -61,7 +61,7 @@ function App() {
             path: '/user/gallery',
             name: 'Gallery',
             icon: 'FaImage'
-        },
+        }, */
 		{
 			path: "/user/visualization",
 			name: "Visualization",
