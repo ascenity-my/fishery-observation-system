@@ -1,8 +1,8 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
 
-import * as ReactIcons from "react-icons/fa";
+import Icon from "components/Icon.component";
 
 import styles from "styles/component/Navbar.module.scss";
 
@@ -23,11 +23,15 @@ function CustomLink({ children, to, ...props }: LinkProps) {
 	);
 }
 
-export default function Navbar({ ...props }) {
-	const Icon = ({ name }) => {
-		const TagName = ReactIcons[name];
-		return !!TagName ? <TagName size={18} /> : <p>{name}</p>;
-	};
+export default function Navbar(props) {
+
+	const [routes, setRoutes] = useState([]);
+
+	useEffect(() => {
+		if (!props.routes) return;
+
+		setRoutes(props.routes);
+	}, [props.routes]); 
 
 	return (
 		<nav className={styles.nav}>
@@ -45,9 +49,9 @@ export default function Navbar({ ...props }) {
 				</div>
 			</div>
 			<div className={styles.links}>
-				{props.paths.map((item, index) => (
+				{routes.map((item, index) => (
 					<CustomLink key={index} to={item.path} className={styles.link}>
-						<Icon name={item.icon}/>
+						<Icon name={item.icon} />
 						{item.name}
 					</CustomLink>
 				))}

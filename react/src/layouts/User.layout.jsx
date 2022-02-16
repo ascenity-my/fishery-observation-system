@@ -4,12 +4,12 @@ import styles from "styles/layout/User.module.scss";
 
 import Navbar from "components/Navbar.component";
 import Topbar from "components/Topbar.component";
+import Icon from "components/Icon.component";
+
 import { useEffect, useState } from "react";
 
 import { Link, useMatch, useResolvedPath, useLocation } from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
-
-import * as ReactIcons from "react-icons/fa";
 
 function CustomLink({ children, to, ...props }: LinkProps) {
 	let resolved = useResolvedPath(to);
@@ -32,41 +32,19 @@ export default function UserLayout(props) {
 	const location = useLocation();
 
 	const [mqtt, setMqtt] = useState(null);
+	const [routes, setRoutes] = useState([]);
 	const [activeLink, setActiveLink] = useState(null);
-
-    const Icon = ({ name }) => {
-		const TagName = ReactIcons[name];
-		return !!TagName ? <TagName size={25} /> : <p>{name}</p>;
-	};
-
-	const paths = [
-		/* {
-            path: '/user/productivity',
-            name: 'Productivity',
-            icon: 'FaBox',
-        }, */
-		{
-			path: "/user/visualization",
-			name: "Visualization",
-			icon: "FaChartBar",
-		},
-		{
-			path: "/user/facilities",
-			name: "Facilites",
-			icon: "FaInbox",
-		},
-		/* {
-            path: '/user/',
-            name: 'Home',
-            icon: 'FaClipboardList',
-        }, */
-	];
 
 	useEffect(() => {
 		if (!props.mqtt) return;
-
 		setMqtt(props.mqtt);
-	}, [props.mqtt]);
+	}, [props.mqtt, props.routes]);
+	
+	useEffect(() => {
+		if (!props.routes) return;
+		
+		setRoutes(props.routes);
+	}, [props.routes]);
 
 	useEffect(() => {
 		setActiveLink(location.pathname);
@@ -78,19 +56,19 @@ export default function UserLayout(props) {
 				<Topbar />
 			</div>
 			<div className={styles.navbar}>
-				<Navbar paths={paths} />
+				<Navbar routes={routes} />
 			</div>
             <div className={styles.botnavbar}>
-                {paths.map((item, index) => (
+                {routes.map((item, index) => (
                     <div key={index} className={`${styles.item} ${(activeLink === item.path) && styles.active}`}>
                         <CustomLink key={index} to={item.path} className={`${styles.link}`}>
-                            <Icon name={item.icon}/>
+                            <Icon name={item.icon.name} from={item.icon.from}/>
                         </CustomLink>
                     </div>
                 ))}
             </div>
 			<div className={styles.content}>
-				<Outlet context={[mqtt]} path={paths} />
+				<Outlet context={[mqtt]}/>
 			</div>
 		</div>
 	);

@@ -46,6 +46,34 @@ function App() {
 	const { token, setToken } = useToken();
 	const [mqttData, setMqttData] = useState(null);
 
+	const routes = [
+		{
+            path: '/user/home',
+            name: 'Home',
+            icon: 'FaHome'
+        },
+		{
+            path: '/user/about',
+            name: 'About',
+            icon: 'FaInfo'
+        },
+		{
+            path: '/user/gallery',
+            name: 'Gallery',
+            icon: 'FaImage'
+        },
+		{
+			path: "/user/visualization",
+			name: "Visualization",
+			icon: 'FaChartLine'
+		},
+		{
+			path: "/user/facilities",
+			name: "Facilites",
+			icon: 'FaTachometerAlt'
+		},
+	];
+
 	const mqttConnect = () => {
 		try {
 			const client = mqtt.connect(`${process.env.REACT_APP_MQTT_PROTOCOL}://${process.env.REACT_APP_MQTT_HOSTNAME}:${process.env.REACT_APP_MQTT_PORT}`, {
@@ -82,7 +110,9 @@ function App() {
 	} */
 
 	useEffect(() => {
-		if (!['/user/visualization', '/user/facilities'].includes(location.pathname)) {
+		const validPaths = routes.map(p => p.path);
+
+		if (!validPaths.includes(location.pathname)) {
 			navigate('/user/visualization', { replace: true });
 		}
 	}, [location.pathname]);
@@ -90,9 +120,12 @@ function App() {
 	return (
 		<div className="App">
 			<Routes>
-				<Route path="/user" element={<UserLayout mqtt={mqttData} />}>
+				<Route path="/user" element={<UserLayout mqtt={mqttData} routes={routes}/>}>
 					<Route index element={<Home />} />
 
+					<Route path="home" element={<Home />} />
+					<Route path="about" element={<Home />} />
+					<Route path="gallery" element={<Home />} />
 					<Route path="visualization" element={<Visualization />} />
 					<Route path="facilities" element={<PondDevices />} />
 				</Route>

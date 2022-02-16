@@ -148,8 +148,6 @@ function SimpleLineChart(props) {
 			if (request.status === 200) {
 				const response = await request.json();
 
-				console.log('log:', response);
-
 				for (let x = 0; x < response.length; x++) {
 					let s = response[x].device_name;
 					let series = createSeries(s, props.field);
