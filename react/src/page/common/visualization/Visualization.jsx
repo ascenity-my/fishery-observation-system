@@ -43,7 +43,7 @@ function DisplayReport(props) {
 	useEffect(() => {
 		(async () => {
 			let request = await fetch(
-				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/average/all`,
+				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/average/hourly/all?total=1`,
 				{
 					method: "GET",
 					headers: {
@@ -57,26 +57,27 @@ function DisplayReport(props) {
 
 				// replace null values with -, round to 2 decimal places
 				const a = response.map((d) => {
-					const { tds, oxy, ph, temp, sal, count } = d.data;
+					const { tds, oxy, ph, temp, sal, count } = d.data[0];
 
 					return {
 						...d,
 						data: {
 							count,
-							tds: tds.value ? tds.value.toFixed(2) : "-",
-							oxy: oxy.value ? oxy.value.toFixed(2) : "-",
-							ph: ph.value ? ph.value.toFixed(2) : "-",
-							temp: temp.value ? temp.value.toFixed(2) : "-",
-							sal: sal.value ? sal.value.toFixed(2) : "-",
+							tds: tds ? tds.toFixed(2) : "-",
+							oxy: oxy ? oxy.toFixed(2) : "-",
+							ph: ph ? ph.toFixed(2) : "-",
+							temp: temp ? temp.toFixed(2) : "-",
+							sal: sal ? sal.toFixed(2) : "-",
 						},
 					};
 				});
 
 				setAverages(a);
 			}
-
-			request = await fetch(
-				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/highest/all`,
+		})();
+		(async () => {
+			let request = await fetch(
+				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/highest/all/hourly`,
 				{
 					method: "GET",
 					headers: {

@@ -273,5 +273,120 @@ module.exports = {
         } catch (e) {
             res.status(500).json({ message: e.message });
         }
+    },
+    getHighestAllHourly: async (req, res) => {
+        try {
+            const devices = await Device.find();
+
+            const data = [];
+
+            const oxy = [0];
+            const temp = [0];
+            const ph = [0];
+            const tds = [0];
+            const sal = [0];
+
+            let highestOxy = {
+                device_id: '',
+                device_name: '',
+                value: 0
+            };
+            let highestTemp = {
+                device_id: '',
+                device_name: '',
+                value: 0
+            };
+            let highestPh = {
+                device_id: '',
+                device_name: '',
+                value: 0
+            };
+            let highestTDS = {
+                device_id: '',
+                device_name: '',
+                value: 0
+            };
+            let highestSal = {
+                device_id: '',
+                device_name: '',
+                value: 0
+            };
+
+            for (let i = 0; i < devices.length; i++) {
+                const device = devices[i];
+                const deviceData = await Data.getHighestHourly(device._id);
+
+                if (deviceData.oxy > highestOxy.value) {
+                    oxy.push(deviceData.oxy);
+                    
+                    highestOxy = {
+                        device_id: device._id,
+                        device_name: device.name,
+                        value: 0
+                    }
+                }
+
+                if (deviceData.temp > highestTemp.value) {
+                    temp.push(deviceData.temp);
+
+                    highestTemp = {
+                        device_id: device._id,
+                        device_name: device.name,
+                        value: 0
+                    }
+
+                }
+
+                if (deviceData.ph > highestPh.value) {
+                    ph.push(deviceData.ph);
+
+                    highestPh = {
+                        device_id: device._id,
+                        device_name: device.name,
+                        value: 0
+                    }
+
+                }
+
+                if (deviceData.tds > highestTDS.value) {
+                    tds.push(deviceData.tds);
+
+                    highestTDS = {
+                        device_id: device._id,
+                        device_name: device.name,
+                        value: 0
+                    }
+
+                }
+
+                if (deviceData.sal > highestSal.value) {
+                    sal.push(deviceData.sal);
+
+                    highestSal = {
+                        device_id: device._id,
+                        device_name: device.name,
+                        value: 0
+                    }
+
+                }
+
+            }
+
+            highestOxy.value = Math.max(...oxy);
+            highestTemp.value = Math.max(...temp);
+            highestPh.value = Math.max(...ph);
+            highestTDS.value = Math.max(...tds);
+            highestSal.value = Math.max(...sal);
+
+            res.status(200).json({
+                oxy: highestOxy,
+                temp: highestTemp,
+                ph: highestPh,
+                tds: highestTDS,
+                sal: highestSal
+            });
+        } catch (e) {
+            res.status(500).json({ message: e.message });
+        }
     }
 };

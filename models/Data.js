@@ -85,7 +85,7 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
                 _id: 1,
             },
         },
-    ]);
+    ]).limit(parseInt(total) || 10);
 
     if (!data || data.length === 0) {
         return [];
@@ -119,7 +119,7 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
         });
     }
 
-    return averages.slice(averages.length - total);
+    return averages;
 }
 
 DataSchema.statics.getOverallAverages = async function (device_id) {
@@ -163,6 +163,40 @@ DataSchema.statics.getOverallAverages = async function (device_id) {
 
 DataSchema.statics.getHighest = async function (device_id) {
     const data = await this.find({ device_id: Types.ObjectId(device_id) });
+
+    if (!data || data.length === 0) {
+        return [];
+    }
+
+    const tds = data.map(d => d.values.tds ? d.values.tds : 0);
+    const oxy = data.map(d => d.values.oxy ? d.values.oxy : 0);
+    const ph = data.map(d => d.values.ph ? d.values.ph : 0);
+    const temp = data.map(d => d.values.temp ? d.values.temp : 0);
+    const sal = data.map(d => d.values.sal ? d.values.sal : 0);
+
+    const tds_max = Math.max(...tds);
+    const oxy_max = Math.max(...oxy);
+    const ph_max = Math.max(...ph);
+    const temp_max = Math.max(...temp);
+    const sal_max = Math.max(...sal);
+
+    return {
+        tds: tds_max,
+        oxy: oxy_max,
+        ph: ph_max,
+        temp: temp_max,
+        sal: sal_max,
+    };
+}
+
+DataSchema.statics.getHighestHourly = async function (device_id, total) {
+    // get all data within the last 1 hour
+    const data = await this.find({
+        device_id: Types.ObjectId(device_id),
+        timestamp: {
+            $gte: new Date(new Date().getTime() - 3600000),
+        },
+    });
 
     if (!data || data.length === 0) {
         return [];
