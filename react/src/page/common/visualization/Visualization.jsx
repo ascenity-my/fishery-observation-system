@@ -74,9 +74,10 @@ function DisplayReport(props) {
 
 				setAverages(a);
 			}
-
-			request = await fetch(
-				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/highest/all`,
+		})();
+		(async () => {
+			let request = await fetch(
+				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/highest/all/hourly`,
 				{
 					method: "GET",
 					headers: {

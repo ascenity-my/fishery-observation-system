@@ -85,7 +85,7 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
                 _id: 1,
             },
         },
-    ]);
+    ]).limit(parseInt(total) || 10);
 
     if (!data || data.length === 0) {
         return [];
@@ -119,7 +119,7 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
         });
     }
 
-    return averages.slice(averages.length - total);
+    return averages;
 }
 
 DataSchema.statics.getOverallAverages = async function (device_id) {
@@ -213,7 +213,7 @@ DataSchema.statics.getHighestHourly = async function (device_id, total) {
     const ph_max = Math.max(...ph);
     const temp_max = Math.max(...temp);
     const sal_max = Math.max(...sal);
-    
+
     return {
         tds: tds_max,
         oxy: oxy_max,
