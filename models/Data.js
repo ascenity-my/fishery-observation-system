@@ -82,10 +82,10 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
         },
         {
             $sort: {
-                _id: 1,
+                _id: -1,
             },
         },
-    ]).limit(parseInt(total) || 10);
+    ]).limit(parseInt(total) || 24);
 
     if (!data || data.length === 0) {
         return [];
@@ -119,7 +119,8 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
         });
     }
 
-    return averages;
+    // invert the array
+    return averages.reverse();
 }
 
 DataSchema.statics.getOverallAverages = async function (device_id) {

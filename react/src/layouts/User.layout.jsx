@@ -68,6 +68,7 @@ export default function UserLayout(props) {
                 ))}
             </div>
 			<div className={styles.content}>
+				<div className={styles.bg}></div>
 				<Outlet context={[mqtt]}/>
 			</div>
 		</div>

@@ -62,7 +62,7 @@ function SimpleLineChart(props) {
 		return series;
 	}
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		let root = am5.Root.new(props.label);
 
 		root.setThemes([am5themes_Animated.new(root)]);
@@ -101,6 +101,7 @@ function SimpleLineChart(props) {
 			am5xy.XYCursor.new(root, {
 				behavior: "zoomXY",
 				xAxis: xAxis,
+				yAxis: yAxis,
 			})
 		);
 

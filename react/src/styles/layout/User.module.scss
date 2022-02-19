@@ -1,23 +1,51 @@
 .content {
+    position: relative;
     margin-left: 200px;
 
     width: calc(100% - 200px);
     padding: 50px;
 
     transition: .3s all;
+
+    & > div:nth-child(2) {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.bg {
+    position: fixed;
+    top: 50px;
+    left: 200px;
+
+    height: calc(100vh - 50px);
+    width: calc(100vw - 200px);
+
+    background-image: url('/static/img/background-1.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: grayscale(1);
+    opacity: .3;
+
+    z-index: 1;
 }
 
 .topbar {
+    position: sticky;
+    top: 0;
+    right: 0;
+
     margin-left: 200px;
 
     width: calc(100% - 200px);
 
-    height: 75px;
-
-    display: flex;
-    align-items: center;
+    height: 50px;
 
     transition: .3s all;
+
+    z-index: 3;
 }
 
 .navbar {

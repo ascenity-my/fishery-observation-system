@@ -8,7 +8,7 @@ export default function Topbar() {
         <div className={styles.bar}>
             <div className={styles.head}>
                 <div className={styles.title}>
-                    Performance observation system
+                    Super Intensive Prawn Farming Observation System (SIPFOS)
                 </div>
             </div>
             <div className={styles['user-action']}>

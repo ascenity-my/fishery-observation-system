@@ -11,6 +11,7 @@ import DateAxisLineChart from "components/DateAxisLineChart.component";
 import MultiAverageChart from "components/MultiAverageChart.component";
 import StatWrapper from "components/StatWrapper.component";
 import StatNumber from "components/StatNumber.component";
+import ValueBound from "components/ValueBound.component";
 
 import styles from "styles/common/facilities/PondDevices.module.scss";
 import exStyles from "styles/common/visualization/Visualization.module.scss";
@@ -57,12 +58,12 @@ function DisplayReport(props) {
 
 				// replace null values with -, round to 2 decimal places
 				const a = response.map((d) => {
-					const { tds, oxy, ph, temp, sal, count } = d.data[0];
+					const { tds, oxy, ph, temp, sal, date } = d.data[0];
 
 					return {
 						...d,
 						data: {
-							count,
+							date,
 							tds: tds ? tds.toFixed(2) : "-",
 							oxy: oxy ? oxy.toFixed(2) : "-",
 							ph: ph ? ph.toFixed(2) : "-",
@@ -105,7 +106,7 @@ function DisplayReport(props) {
 				</div>
 			</div>
 			<div className={exStyles.body}>
-				<StatWrapper>
+				{/* <StatWrapper>
 					<StatNumber
 						title="Highest pH"
 						value={highest.ph.value || 0}
@@ -139,6 +140,9 @@ function DisplayReport(props) {
 						unit={highest.sal.device_name || 0}
 						icon="FaLevelUpAlt"
 					/>
+				</StatWrapper> */}
+				<StatWrapper >
+					<ValueBound />
 				</StatWrapper>
 				<div className={exStyles.avrTable}>
 					<div className={exStyles.header}>
@@ -148,7 +152,6 @@ function DisplayReport(props) {
 						<div className={exStyles.title}>Temp</div>
 						<div className={exStyles.title}>Turbidity</div>
 						<div className={exStyles.title}>Salinity</div>
-						<div className={exStyles.title}>Data count</div>
 					</div>
 					<div className={exStyles.data}>
 						{averages.map((_, i) => (
@@ -170,9 +173,6 @@ function DisplayReport(props) {
 								</div>
 								<div className={exStyles.dataCell}>
 									{_.data.sal}
-								</div>
-								<div className={exStyles.dataCell}>
-									{_.data.count}
 								</div>
 							</div>
 						))}
