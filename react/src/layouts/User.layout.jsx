@@ -4,6 +4,7 @@ import styles from "styles/layout/User.module.scss";
 
 import Navbar from "components/Navbar.component";
 import Topbar from "components/Topbar.component";
+import Banner from "components/Banner.component"
 import Icon from "components/Icon.component";
 
 import { useEffect, useState } from "react";
@@ -67,6 +68,7 @@ export default function UserLayout(props) {
                     </div>
                 ))}
             </div>
+			<Banner title="Super Intensive Prawn Farming Observation System (SIPFOS)"/>
 			<div className={styles.content}>
 				<div className={styles.bg}></div>
 				<Outlet context={[mqtt]}/>

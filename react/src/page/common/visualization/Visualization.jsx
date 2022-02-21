@@ -97,53 +97,28 @@ function DisplayReport(props) {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.header}>
-				<div className={styles.text}>
-					<div className={styles.title}>Averages</div>
-					<div className={styles.subtitle}>
-						Average value for each data recorded from the ponds
+			<div className={exStyles.body}>
+				<div className={styles.header}>
+					<div className={styles.text}>
+						<div className={styles.title}>Min & Max</div>
+						<div className={styles.subtitle}>
+							This values represent the highest and lowest value
+							obtained per hour
+						</div>
 					</div>
 				</div>
-			</div>
-			<div className={exStyles.body}>
-				{/* <StatWrapper>
-					<StatNumber
-						title="Highest pH"
-						value={highest.ph.value || 0}
-						unit={highest.ph.device_name || 0}
-						icon="FaLevelUpAlt"
-					/>
-
-					<StatNumber
-						title="Highest DO"
-						value={highest.oxy.value || 0}
-						unit={highest.oxy.device_name || 0}
-						icon="FaLevelUpAlt"
-					/>
-
-					<StatNumber
-						title="Highest Temp"
-						value={highest.temp.value || 0}
-						unit={highest.temp.device_name || 0}
-						icon="FaLevelUpAlt"
-					/>
-
-					<StatNumber
-						title="Highest Turbidity"
-						value={highest.tds.value || 0}
-						unit={highest.tds.device_name || 0}
-						icon="FaLevelUpAlt"
-					/>
-					<StatNumber
-						title="Highest Salinity"
-						value={highest.sal.value || 0}
-						unit={highest.sal.device_name || 0}
-						icon="FaLevelUpAlt"
-					/>
-				</StatWrapper> */}
-				<StatWrapper >
+				<StatWrapper>
 					<ValueBound />
 				</StatWrapper>
+				<div className={styles.header}>
+					<div className={styles.text}>
+						<div className={styles.title}>Parameter averages</div>
+						<div className={styles.subtitle}>
+							This table shows the average value of each parameter
+							per hour
+						</div>
+					</div>
+				</div>
 				<div className={exStyles.avrTable}>
 					<div className={exStyles.header}>
 						<div className={exStyles.title}>Name</div>
@@ -178,9 +153,17 @@ function DisplayReport(props) {
 						))}
 					</div>
 				</div>
+
 				<div className={exStyles.averages}>
+					<div className={styles.header}>
+						<div className={styles.text}>
+							<div className={styles.title}>Average pH</div>
+							<div className={styles.subtitle}>
+								This chart shows the average pH value per hour
+							</div>
+						</div>
+					</div>
 					<div className={exStyles.item}>
-						<div className={exStyles.title}>Average pH</div>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
 								label="averagePH"
@@ -189,8 +172,18 @@ function DisplayReport(props) {
 							/>
 						</div>
 					</div>
+					<div className={styles.header}>
+						<div className={styles.text}>
+							<div className={styles.title}>
+								Average DO (mg/l)
+							</div>
+							<div className={styles.subtitle}>
+								This chart shows the average dissolved oxygen
+								(DO) value per hour
+							</div>
+						</div>
+					</div>
 					<div className={exStyles.item}>
-						<div className={exStyles.title}>Average DO</div>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
 								label="averageDO"
@@ -199,10 +192,18 @@ function DisplayReport(props) {
 							/>
 						</div>
 					</div>
-					<div className={exStyles.item}>
-						<div className={exStyles.title}>
-							Average Temperature
+					<div className={styles.header}>
+						<div className={styles.text}>
+						<div className={styles.title}>
+						Average Temperature (°C)
+							</div>
+							<div className={styles.subtitle}>
+								This chart shows the average temperature (temp)
+								value per hour
+							</div>
 						</div>
+					</div>
+					<div className={exStyles.item}>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
 								label="averageTemp"
@@ -211,8 +212,18 @@ function DisplayReport(props) {
 							/>
 						</div>
 					</div>
+					<div className={styles.header}>
+						<div className={styles.text}>
+							<div className={styles.title}>
+								Average TDS (ppm)
+							</div>
+							<div className={styles.subtitle}>
+								This chart shows the average total dissolved
+								solid (TDS) value per hour
+							</div>
+						</div>
+					</div>
 					<div className={exStyles.item}>
-						<div className={exStyles.title}>Average Turbidity</div>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
 								label="averageTDS"
@@ -221,8 +232,18 @@ function DisplayReport(props) {
 							/>
 						</div>
 					</div>
+					<div className={styles.header}>
+						<div className={styles.text}>
+							<div className={styles.title}>
+								Average Salinity (ppt)
+							</div>
+							<div className={styles.subtitle}>
+								This chart shows the average salinity (sal)
+								value per hour
+							</div>
+						</div>
+					</div>
 					<div className={exStyles.item}>
-						<div className={exStyles.title}>Average Salinity</div>
 						<div className={exStyles.chart}>
 							<MultiAverageChart
 								label="averageSal"

@@ -35,19 +35,7 @@ export default function Navbar(props) {
 
 	return (
 		<nav className={styles.nav}>
-			<div className={styles['title-card']}>
-				<div className={styles.logo}>
-					{/* <Image src="/logo.png" width={100} height={100} alt=''/> */}
-				</div>
-				<div className={styles.text}>
-					<div className={`${styles.title} card-text`}>
-						User
-					</div>
-					<div className={`${styles.label} card-text`}>
-						Researcher
-					</div>
-				</div>
-			</div>
+			<div className={styles.logo}></div>
 			<div className={styles.links}>
 				{routes.map((item, index) => (
 					<CustomLink key={index} to={item.path} className={styles.link}>

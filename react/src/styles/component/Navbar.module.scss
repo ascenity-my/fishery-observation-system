@@ -110,6 +110,18 @@
 
 }
 
+.logo {
+    width: 150px;
+    height: 150px;
+
+    background: url('/static/img/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 757px) {
     .nav {
         box-shadow: 0px 0px 20px 0px #2179FF00;
