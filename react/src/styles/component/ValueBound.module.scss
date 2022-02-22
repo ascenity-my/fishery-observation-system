@@ -12,7 +12,7 @@
     flex-direction: column;
 
     .label {
-        font-size: 1rem;
+        font-size: 1.2rem;
         font-weight: bold;
         margin-bottom: 15px;
     }
@@ -27,9 +27,22 @@
             align-items: center;
             gap: 10px;
 
+            font-size: 1.2rem;
+
             & > *:first-child {
                 color: #383bfa;
             }
         }
+    }
+}
+
+@media screen and (max-width: 757px) {
+    .wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .item {
+        flex-direction: column;
     }
 }

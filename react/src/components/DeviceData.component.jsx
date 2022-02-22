@@ -18,6 +18,7 @@ function DeviceData(props) {
 	const [ph, setPh] = useState([]);
 	const [temp, setTemp] = useState([]);
 	const [sal, setSal] = useState([]);
+	const [visible, setVisible] = useState(false);
 	const [lastUpdate, setLastUpdate] = useState("");
 
 	const requestData = async (id) => {
@@ -43,7 +44,7 @@ function DeviceData(props) {
 				date: new Date(d.timestamp).getTime(),
 				value: d.values.temp,
 			}));
-			const salData = data.map(d => ({
+			const salData = data.map((d) => ({
 				date: new Date(d.timestamp).getTime(),
 				value: d.values.sal,
 			}));
@@ -84,12 +85,23 @@ function DeviceData(props) {
 		requestData(props.uid);
 	}, [props.name, props.uid]);
 
+	useEffect(() => {
+		if (typeof props.visible !== "undefined") {
+			setVisible(props.visible);
+		}
+	}, [props.visible]);
+
 	return (
-		<div className={styles.container}>
+		<div className={`${styles.container} ${visible ? styles.visible : ""}`}>
 			<div className={styles.header}>
+				<div className={styles.status}></div>
 				<div className={styles.label}>
-					<div className={styles.name}>{props.name}</div>
-					<div className={styles.status}></div>
+					<div className={styles.device}>
+						<div className={styles.name}>{props.name}</div>
+					</div>
+					<div className={styles.date}>
+						Last updated at {lastUpdate}
+					</div>
 				</div>
 			</div>
 			<div className={styles.body}>
@@ -170,41 +182,37 @@ function DeviceData(props) {
 					<StatNumber
 						title="pH"
 						value={ph.length && ph[0].value}
-						unit='pH'
+						unit="pH"
 						icon="BsDropletHalf"
 						from="Bs"
 					/>
 					<StatNumber
 						title="Dissolved Oxygen"
 						value={oxy.length && oxy[0].value}
-						unit='mg/L'
+						unit="mg/L"
 						icon="SiOxygen"
 						from="Si"
 					/>
 					<StatNumber
 						title="Temperature"
 						value={temp.length && temp[0].value}
-						unit='°C'
+						unit="°C"
 						icon="FaTemperatureLow"
 					/>
 					<StatNumber
 						title="Total Dissolved Solids"
 						value={tds.length && tds[0].value}
-						unit='ppm'
+						unit="ppm"
 						icon="SiWeightsandbiases"
 						from="Si"
 					/>
 					<StatNumber
 						title="Salinity"
 						value={sal.length && sal[0].value}
-						unit='ppt'
+						unit="ppt"
 						icon="BiWater"
 						from="Bi"
 					/>
-				</div>
-				<div className={styles.lastUpdate}>
-					<div className={styles.label}>Last updated at</div>
-					<div className={styles.value}>{lastUpdate}</div>
 				</div>
 			</div>
 		</div>

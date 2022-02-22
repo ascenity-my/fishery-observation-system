@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useOutletContext } from "react-router-dom";
 
 // components
@@ -15,6 +15,8 @@ import styles from "styles/common/facilities/PondDevices.module.scss";
 function DisplayReport(props) {
 	const [mqtt] = useOutletContext();
 
+	const selectPond = useRef(null);
+
 	const [labels, setLabels] = useState([]);
 
 	const requestLabels = async () => {
@@ -27,7 +29,10 @@ function DisplayReport(props) {
 		const allLabel = data.map((device) => ({
 			label: device.name,
 			id: device._id,
+			visible: false,
 		}));
+
+		allLabel[0].visible = true;
 
 		setLabels(allLabel);
 	};
@@ -46,6 +51,18 @@ function DisplayReport(props) {
 		}
 	}, [mqtt]);
 
+	const onSelect = (id) => {
+		const selected = labels.map((label) => {
+			label.visible = false;
+			if (label.id === id) {
+				label.visible = true;
+			}
+			return label;
+		});
+
+		setLabels(selected);
+	}
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -55,11 +72,23 @@ function DisplayReport(props) {
 						Monitor each pond devices in real-time
 					</div>
 				</div>
+				<div className={styles.actions}>
+					<select ref={selectPond} onChange={() => {
+						onSelect(selectPond.current.value);
+					}}>
+						{labels.map((label) => (
+							<option key={label.id} value={label.id}>
+								{label.label}
+							</option>
+						))}
+					</select>
+				</div>
 			</div>
 			<div className={styles.body}>
 				<div className={styles.charts}>
 					{labels.map((item, x) => (
 						<DeviceData
+							visible={item.visible}
 							key={x}
 							name={item.label}
 							uid={item.id}

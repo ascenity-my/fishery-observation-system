@@ -68,7 +68,7 @@
     bottom: 0;
     right: 0;
 
-    width: 50%;
+    width: fit-content;
     height: 55px;
 
     background: #2961E2;
@@ -80,6 +80,8 @@
 
     gap: 30px;
 
+    padding: 0 30px;
+
     border-radius: 20px 0 0 0;
 
     .item {
@@ -87,9 +89,12 @@
 
         &.active{
             transform: scale(1.5);
+            & div > * {
+                color: white;
+            }
         }
         & div > * {
-            color: white !important;
+            color: rgba(255, 255, 255, 0.432);
 
         }
 
@@ -116,5 +121,10 @@
 
     .botnavbar {
         display: flex;
+    }
+
+    .bg {
+        left: 0;
+        width: 100vw;
     }
 }

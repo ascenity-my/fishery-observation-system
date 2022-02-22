@@ -72,6 +72,26 @@ code {
   color: #61dafb;
 }
 
+select {
+  min-width: 200px;
+  padding: 5px 20px;
+
+  font-size: 1rem;
+
+  border: none;
+  outline: none;
+  &:active {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
+
+  border-radius: 5px;
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

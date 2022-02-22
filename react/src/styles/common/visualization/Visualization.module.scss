@@ -47,7 +47,8 @@
 
 		& > div {
 			text-align: center;
-			color: #2179ff;
+			font-weight: bold;
+			color: #383bfa;
 		}
 
 		padding: 12px 20px;
@@ -78,9 +79,6 @@
 	.data {
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
-
-		padding: 10px 20px;
 
         min-width: 550px;
         max-height: 300px;
@@ -89,9 +87,10 @@
 			display: flex;
 
 			width: 100%;
+			padding: 5px 20px;
 
 			&:nth-child(odd) {
-				opacity: 0.6;
+				background: #f5f5f5;
 			}
 
 			& > div {
@@ -119,6 +118,21 @@
 			}
 			& > div:nth-child(6) {
 				flex: 0 0 80px;
+			}
+
+			.label {
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+
+				.name {
+					font-size: 1rem;
+					font-weight: bold;
+				}
+				.date {
+					padding-left: 10px;
+					opacity: .7;
+				}
 			}
 		}
 	}

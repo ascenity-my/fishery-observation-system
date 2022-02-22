@@ -15,7 +15,7 @@ export default function Topbar() {
 					<div className={styles.photo}></div>
 					<div className={styles.detail}>
 						<div className={styles.name}>
-							Lorem itsum sit amet doler
+							Muhammad Shukri bin Shafie
 						</div>
 						<div className={styles.title}>Pengarah</div>
 					</div>

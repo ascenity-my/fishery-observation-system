@@ -1,7 +1,7 @@
 .container {
     background: white;
 
-    display: flex;
+    display: none;
     flex-direction: column;
 
     gap: 20px;
@@ -11,31 +11,44 @@
     /* sharp shadow */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 
+    &.visible {
+        display: flex;
+    }
 }
 
 .header {
     min-width: 200px;
     width: fit-content;
     height: fit-content;
+    background: #2179FF;
 
+    padding: 5px 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+    
+    border-radius: 8px 0 5px 0;
     .label {
-        background: #2179FF;
-        color: white;
-        padding: 5px 10px;
-
-        border-radius: 8px 0 5px 0;
-
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        color: white;
 
-        .status {
-            height: 10px;
-            width: 10px;
-
-            border-radius: 50%;
-            background: #2ECC71;
+        .device > .name {
+            font-weight: bold;
         }
+
+        .date {
+            font-size: 0.8rem;
+        }
+    }
+    .status {
+        height: 15px;
+        width: 15px;
+    
+        border-radius: 50%;
+        background: #2ECC71;
     }
 }
 
@@ -60,7 +73,7 @@
         gap: 30px;
 
         .chart {
-            flex: 1 0 40%;
+            flex: 0 0 30%;
 
             min-width: 200px;
 

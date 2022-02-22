@@ -60,10 +60,12 @@ function DisplayReport(props) {
 				const a = response.map((d) => {
 					const { tds, oxy, ph, temp, sal, date } = d.data[0];
 
+					const dateStr = new Date(date).toLocaleString();
+
 					return {
 						...d,
 						data: {
-							date,
+							date: dateStr,
 							tds: tds ? tds.toFixed(2) : "-",
 							oxy: oxy ? oxy.toFixed(2) : "-",
 							ph: ph ? ph.toFixed(2) : "-",
@@ -132,7 +134,14 @@ function DisplayReport(props) {
 						{averages.map((_, i) => (
 							<div key={i} className={exStyles.dataRow}>
 								<div className={exStyles.dataCell}>
-									{_.device_name}
+									<div className={exStyles.label}>
+										<div className={exStyles.name}>
+											{_.device_name}
+										</div>
+										<div className={exStyles.date}>
+											last updated at {_.data.date}
+										</div>
+									</div>
 								</div>
 								<div className={exStyles.dataCell}>
 									{_.data.ph}
@@ -194,8 +203,8 @@ function DisplayReport(props) {
 					</div>
 					<div className={styles.header}>
 						<div className={styles.text}>
-						<div className={styles.title}>
-						Average Temperature (°C)
+							<div className={styles.title}>
+								Average Temperature (°C)
 							</div>
 							<div className={styles.subtitle}>
 								This chart shows the average temperature (temp)
