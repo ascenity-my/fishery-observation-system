@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
 
 import Icon from "components/Icon.component";
@@ -7,13 +7,23 @@ import Icon from "components/Icon.component";
 import styles from "styles/component/Navbar.module.scss";
 
 function CustomLink({ children, to, ...props }: LinkProps) {
-	let resolved = useResolvedPath(to);
-	let match = useMatch({ path: resolved.pathname, end: true });
+	const location = useLocation();
+
+	const [match, setMatch] = useState(false);
+
+	useEffect(() => {
+		console.log(to, location.pathname);
+		if (location.pathname === to) {
+			setMatch(true);
+		} else {
+			setMatch(false);
+		}
+	}, [location.pathname, to]);
 
 	return (
-		<div>
+		<div className={`${(match && styles.active) || ''}`}>
 			<Link
-				style={{ color: match ? "#444444" : "#000" }}
+				
 				to={to}
 				{...props}
 			>

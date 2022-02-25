@@ -66,6 +66,14 @@
 
         margin-top: 30px;
 
+        .active {
+            background: white;
+
+            & > *  {   
+                color: #2179FFFF !important;
+            }
+        }
+
         & .link {
             display: flex;
             gap: 15px;
@@ -74,14 +82,10 @@
 
             padding: 15px 30px;
 
-            color: white !important;
+            color: white;
             text-decoration: none !important;
 
             font-size: 14px;
-
-            &.active {
-                background: #ffffff2a;
-            }
 
             transition: .3s all;
             .icon {
