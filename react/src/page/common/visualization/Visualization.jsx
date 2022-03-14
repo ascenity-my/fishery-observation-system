@@ -31,10 +31,6 @@ function DisplayReport(props) {
 			value: 0,
 			device_name: "",
 		},
-		tds: {
-			value: 0,
-			device_name: "",
-		},
 		sal: {
 			value: 0,
 			device_name: "",
@@ -58,7 +54,7 @@ function DisplayReport(props) {
 
 				// replace null values with -, round to 2 decimal places
 				const a = response.map((d) => {
-					const { tds, oxy, ph, temp, sal, date } = d.data[0];
+					const { oxy, ph, temp, sal, date } = d.data[0];
 
 					const dateStr = new Date(date).toLocaleString();
 
@@ -66,7 +62,6 @@ function DisplayReport(props) {
 						...d,
 						data: {
 							date: dateStr,
-							tds: tds ? tds.toFixed(2) : "-",
 							oxy: oxy ? oxy.toFixed(2) : "-",
 							ph: ph ? ph.toFixed(2) : "-",
 							temp: temp ? temp.toFixed(2) : "-",
@@ -127,7 +122,6 @@ function DisplayReport(props) {
 						<div className={exStyles.title}>pH</div>
 						<div className={exStyles.title}>DO</div>
 						<div className={exStyles.title}>Temp</div>
-						<div className={exStyles.title}>Turbidity</div>
 						<div className={exStyles.title}>Salinity</div>
 					</div>
 					<div className={exStyles.data}>
@@ -151,9 +145,6 @@ function DisplayReport(props) {
 								</div>
 								<div className={exStyles.dataCell}>
 									{_.data.temp}
-								</div>
-								<div className={exStyles.dataCell}>
-									{_.data.tds}
 								</div>
 								<div className={exStyles.dataCell}>
 									{_.data.sal}
@@ -218,26 +209,6 @@ function DisplayReport(props) {
 								label="averageTemp"
 								height="300px"
 								field="temp"
-							/>
-						</div>
-					</div>
-					<div className={styles.header}>
-						<div className={styles.text}>
-							<div className={styles.title}>
-								Average TDS (ppm)
-							</div>
-							<div className={styles.subtitle}>
-								This chart shows the average total dissolved
-								solid (TDS) value per hour
-							</div>
-						</div>
-					</div>
-					<div className={exStyles.item}>
-						<div className={exStyles.chart}>
-							<MultiAverageChart
-								label="averageTDS"
-								height="300px"
-								field="tds"
 							/>
 						</div>
 					</div>

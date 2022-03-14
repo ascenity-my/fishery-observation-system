@@ -41,7 +41,6 @@ const parseData = (payload) => {
                 await Data.create({
                     device_id: device._id,
                     values: {
-                        tds: data.tds,
                         oxy: data.oxy,
                         ph: data.ph,
                         temp: data.temp,

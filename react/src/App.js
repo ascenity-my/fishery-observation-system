@@ -17,6 +17,10 @@ import Login from "page/common/Login";
 import UserLayout from "layouts/User.layout";
 import AdminLayout from "layouts/Admin.layout";
 
+import HomePage from "page/common/Home";
+import AboutPage from "page/common/About";
+import GalleryPage from "page/common/Gallery";
+
 import PondDevices from "page/common/facilities/PondDevices";
 import Visualization from "page/common/visualization/Visualization";
 
@@ -112,9 +116,9 @@ function App() {
 				<Route path="/user" element={<UserLayout mqtt={mqttData} routes={routes}/>}>
 					<Route index element={<Home />} />
 
-					<Route path="home" element={<Home />} />
-					<Route path="about" element={<Home />} />
-					<Route path="gallery" element={<Home />} />
+					<Route path="home" element={<HomePage />} />
+					<Route path="about" element={<AboutPage />} />
+					<Route path="gallery" element={<GalleryPage />} />
 					<Route path="visualization" element={<Visualization />} />
 					<Route path="facilities" element={<PondDevices />} />
 				</Route>

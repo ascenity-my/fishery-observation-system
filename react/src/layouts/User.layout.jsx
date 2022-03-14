@@ -9,7 +9,7 @@ import Icon from "components/Icon.component";
 
 import { useEffect, useState } from "react";
 
-import { Link, useMatch, useResolvedPath, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
 
 function CustomLink({ children, to, ...props }: LinkProps) {
@@ -33,6 +33,7 @@ export default function UserLayout(props) {
 	const [activeLink, setActiveLink] = useState(null);
 
 	useEffect(() => {
+		console.log(props.mqtt);
 		if (!props.mqtt) return;
 		setMqtt(props.mqtt);
 	}, [props.mqtt, props.routes]);

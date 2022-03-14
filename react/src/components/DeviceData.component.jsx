@@ -13,7 +13,6 @@ function DeviceData(props) {
 	const [name, setName] = useState("");
 	const [uid, setUID] = useState("");
 
-	const [tds, setTds] = useState([]);
 	const [oxy, setOxy] = useState([]);
 	const [ph, setPh] = useState([]);
 	const [temp, setTemp] = useState([]);
@@ -28,10 +27,6 @@ function DeviceData(props) {
 		const data = await response.json();
 
 		if (data && data.length) {
-			const tdsData = data.map((d) => ({
-				date: new Date(d.timestamp).getTime(),
-				value: d.values.tds,
-			}));
 			const oxyData = data.map((d) => ({
 				date: new Date(d.timestamp).getTime(),
 				value: d.values.oxy,
@@ -52,7 +47,6 @@ function DeviceData(props) {
 			// setLastUpdate to dd/mm/yyyy hh:mm:ss
 			const l = new Date(data[0].timestamp).toLocaleString();
 
-			setTds(tdsData);
 			setOxy(oxyData);
 			setPh(phData);
 			setTemp(tempData);
@@ -62,6 +56,8 @@ function DeviceData(props) {
 	};
 
 	useEffect(() => {
+		console.log(props.mqtt);
+		
 		if (!props.mqtt) return;
 
 		if (props.mqtt.topic === "sasaqua/server/state") {
@@ -148,20 +144,7 @@ function DeviceData(props) {
 							height={props.chartHeight}
 						/>
 					</div>
-					<div className={styles.chart}>
-						<div className={styles.label}>
-							<div className={styles.name}>Turbidity</div>
-							<div className={styles.value}>
-								{tds.length && tds[0].value}
-							</div>
-						</div>
-						<SimpleLineChart
-							data={tds}
-							/* unique label string generate */
-							label={`${Date.now()}${Math.random()}`}
-							height={props.chartHeight}
-						/>
-					</div>
+					
 					<div className={styles.chart}>
 						<div className={styles.label}>
 							<div className={styles.name}>Salinity</div>
@@ -198,13 +181,6 @@ function DeviceData(props) {
 						value={temp.length && temp[0].value}
 						unit="°C"
 						icon="FaTemperatureLow"
-					/>
-					<StatNumber
-						title="Total Dissolved Solids"
-						value={tds.length && tds[0].value}
-						unit="ppm"
-						icon="SiWeightsandbiases"
-						from="Si"
 					/>
 					<StatNumber
 						title="Salinity"

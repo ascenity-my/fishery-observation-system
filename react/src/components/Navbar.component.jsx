@@ -12,7 +12,6 @@ function CustomLink({ children, to, ...props }: LinkProps) {
 	const [match, setMatch] = useState(false);
 
 	useEffect(() => {
-		console.log(to, location.pathname);
 		if (location.pathname === to) {
 			setMatch(true);
 		} else {

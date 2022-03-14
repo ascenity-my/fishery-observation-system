@@ -168,7 +168,6 @@ module.exports = {
             const oxy = [0];
             const temp = [0];
             const ph = [0];
-            const tds = [0];
             const sal = [0];
 
             let highestOxy = {
@@ -182,11 +181,6 @@ module.exports = {
                 value: 0
             };
             let highestPh = {
-                device_id: '',
-                device_name: '',
-                value: 0
-            };
-            let highestTDS = {
                 device_id: '',
                 device_name: '',
                 value: 0
@@ -233,17 +227,6 @@ module.exports = {
 
                 }
 
-                if (deviceData.tds > highestTDS.value) {
-                    tds.push(deviceData.tds);
-
-                    highestTDS = {
-                        device_id: device._id,
-                        device_name: device.name,
-                        value: 0
-                    }
-
-                }
-
                 if (deviceData.sal > highestSal.value) {
                     sal.push(deviceData.sal);
 
@@ -260,14 +243,12 @@ module.exports = {
             highestOxy.value = Math.max(...oxy);
             highestTemp.value = Math.max(...temp);
             highestPh.value = Math.max(...ph);
-            highestTDS.value = Math.max(...tds);
             highestSal.value = Math.max(...sal);
 
             res.status(200).json({
                 oxy: highestOxy,
                 temp: highestTemp,
                 ph: highestPh,
-                tds: highestTDS,
                 sal: highestSal
             });
         } catch (e) {
@@ -283,7 +264,6 @@ module.exports = {
             const oxy = [0];
             const temp = [0];
             const ph = [0];
-            const tds = [0];
             const sal = [0];
 
             let highestOxy = {
@@ -297,11 +277,6 @@ module.exports = {
                 value: 0
             };
             let highestPh = {
-                device_id: '',
-                device_name: '',
-                value: 0
-            };
-            let highestTDS = {
                 device_id: '',
                 device_name: '',
                 value: 0
@@ -348,17 +323,6 @@ module.exports = {
 
                 }
 
-                if (deviceData.tds > highestTDS.value) {
-                    tds.push(deviceData.tds);
-
-                    highestTDS = {
-                        device_id: device._id,
-                        device_name: device.name,
-                        value: 0
-                    }
-
-                }
-
                 if (deviceData.sal > highestSal.value) {
                     sal.push(deviceData.sal);
 
@@ -375,14 +339,12 @@ module.exports = {
             highestOxy.value = Math.max(...oxy);
             highestTemp.value = Math.max(...temp);
             highestPh.value = Math.max(...ph);
-            highestTDS.value = Math.max(...tds);
             highestSal.value = Math.max(...sal);
 
             res.status(200).json({
                 oxy: highestOxy,
                 temp: highestTemp,
                 ph: highestPh,
-                tds: highestTDS,
                 sal: highestSal
             });
         } catch (e) {
