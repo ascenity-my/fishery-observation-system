@@ -11,22 +11,11 @@ export default function ValueBound(props) {
 	const [sal, setSal] = useState([0.0, 0.0]);
 
 	useEffect(() => {
-		if (props.ph) {
-			setPh(props.ph);
-		}
-
-		if (props.oxy) {
-			setOxy(props.oxy);
-		}
-
-		if (props.temp) {
-			setTemp(props.temp);
-		}
-
-		if (props.sal) {
-			setSal(props.sal);
-		}
-	}, [props.ph, props.temp, props.sal, props.oxy]);
+		setPh([...props.bounds.ph]);
+		setOxy([...props.bounds.oxy]);
+		setTemp([...props.bounds.temp]);
+		setSal([...props.bounds.sal]);
+	}, [props.bounds]);
 
 	return (
 		<div className={styles.wrapper}>

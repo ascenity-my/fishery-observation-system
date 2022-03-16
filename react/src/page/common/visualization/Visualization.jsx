@@ -93,8 +93,6 @@ function DisplayReport(props) {
 			if (request.status === 200) {
 				const response = await request.json();
 
-				console.log(response);
-
 				let b = bounds;
 
 				Object.keys(b).forEach((key) => {
@@ -125,10 +123,7 @@ function DisplayReport(props) {
 				</div>
 				<StatWrapper>
 					<ValueBound 
-						oxy={bounds.oxy}
-						ph={bounds.ph}
-						temp={bounds.temp}
-						sal={bounds.sal}
+						bounds={bounds}
 
 					/>
 				</StatWrapper>
