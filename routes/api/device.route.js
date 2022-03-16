@@ -12,5 +12,6 @@ router.get('/data/average/hourly/all', controller.getAllLatestAverages);
 router.get('/data/average/all', controller.getOverallAverage);
 router.get('/data/highest/all', controller.getHighest);
 router.get('/data/highest/all/hourly', controller.getHighestAllHourly);
+router.get('/data/bounds/all/hourly', controller.getBoundsAllHourly);
 
 module.exports =    router;

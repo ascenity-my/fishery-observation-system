@@ -36,6 +36,12 @@ function DisplayReport(props) {
 			device_name: "",
 		},
 	});
+	const [bounds, setBounds] = useState({
+		oxy: [0, 0],
+		ph: [0, 0],
+		temp: [0, 0],
+		sal: [0, 0],
+	});
 
 	useEffect(() => {
 		(async () => {
@@ -75,7 +81,7 @@ function DisplayReport(props) {
 		})();
 		(async () => {
 			let request = await fetch(
-				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/highest/all/hourly`,
+				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/bounds/all/hourly`,
 				{
 					method: "GET",
 					headers: {
@@ -87,7 +93,20 @@ function DisplayReport(props) {
 			if (request.status === 200) {
 				const response = await request.json();
 
-				setHighest(response);
+				console.log(response);
+
+				let b = bounds;
+
+				Object.keys(b).forEach((key) => {
+					b[key] = [
+						response[key][0].value,
+						response[key][1].value,
+					];
+				});
+
+				console.log(b);
+
+				setBounds(b);
 			}
 		})();
 	}, []);
@@ -105,7 +124,13 @@ function DisplayReport(props) {
 					</div>
 				</div>
 				<StatWrapper>
-					<ValueBound />
+					<ValueBound 
+						oxy={bounds.oxy}
+						ph={bounds.ph}
+						temp={bounds.temp}
+						sal={bounds.sal}
+
+					/>
 				</StatWrapper>
 				<div className={styles.header}>
 					<div className={styles.text}>

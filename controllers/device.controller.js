@@ -350,5 +350,55 @@ module.exports = {
         } catch (e) {
             res.status(500).json({ message: e.message });
         }
-    }
+    },
+    getBoundsAllHourly: async (req, res) => {
+        try {
+            const devices = await Device.find();
+
+            const data = {
+                oxy: [],
+                temp: [],
+                ph: [],
+                sal: []
+            };
+
+            for (let device of devices) {
+                const deviceData = await Data.getBoundsHourly(device._id);
+
+                Object.keys(deviceData).forEach(key => {
+                    if (data[key].length === 0) {
+                        data[key].push({
+                            device_id: device._id,
+                            device_name: device.name,
+                            value: deviceData[key][0]
+                        })
+                    } else if (deviceData[key][0] < data[key][0].value) {
+                        data[key][0] = {
+                            device_id: device._id,
+                            device_name: device.name,
+                            value: deviceData[key][0]
+                        }
+                    }
+
+                    if (data[key].length === 1) {
+                        data[key].push({
+                            device_id: device._id,
+                            device_name: device.name,
+                            value: deviceData[key][1]
+                        })
+                    } else if (deviceData[key][1] > data[key][1].value) {
+                        data[key][1] = {
+                            device_id: device._id,
+                            device_name: device.name,
+                            value: deviceData[key][1]
+                        }
+                    }
+                });
+            }
+            
+            res.status(200).json(data);
+        } catch (e) {
+            res.status(500).json({ message: e.message });
+        }
+    },
 };
