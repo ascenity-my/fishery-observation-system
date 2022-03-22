@@ -29,11 +29,11 @@ export default function UserLayout(props) {
 	const location = useLocation();
 
 	const [mqtt, setMqtt] = useState(null);
+	const [bannerTitle, setBannerTitle] = useState("Super Intensive Prawn Farming Observation System (SIPFOS)");
 	const [routes, setRoutes] = useState([]);
 	const [activeLink, setActiveLink] = useState(null);
 
 	useEffect(() => {
-		console.log(props.mqtt);
 		if (!props.mqtt) return;
 		setMqtt(props.mqtt);
 	}, [props.mqtt, props.routes]);
@@ -45,6 +45,20 @@ export default function UserLayout(props) {
 	}, [props.routes]);
 
 	useEffect(() => {
+		if (location.pathname === '/user/gallery') {
+			setBannerTitle("Gallery");
+		} else if (location.pathname === '/user/about') {
+			setBannerTitle("About");
+		} else if (location.pathname === '/user/home') {
+			setBannerTitle("Home");
+		} else if (location.pathname === '/user/visualization') {
+			setBannerTitle("Visualization");
+		} else if (location.pathname === '/user/facilities') {
+			setBannerTitle("Facilities");
+		} else {
+			setBannerTitle("Super Intensive Prawn Farming Observation System (SIPFOS)");
+		}
+
 		setActiveLink(location.pathname);
 	}, [location]);
 
@@ -65,7 +79,7 @@ export default function UserLayout(props) {
                     </div>
                 ))}
             </div>
-			<Banner title="Super Intensive Prawn Farming Observation System (SIPFOS)"/>
+			<Banner title={bannerTitle}/>
 			<div className={styles.content}>
 				<div className={styles.bg}></div>
 				<Outlet context={[mqtt]}/>

@@ -83,6 +83,8 @@
         min-width: 550px;
         max-height: 300px;
 
+		overflow-y: auto;
+
 		.dataRow {
 			display: flex;
 

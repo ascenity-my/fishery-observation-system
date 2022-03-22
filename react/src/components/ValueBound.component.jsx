@@ -15,7 +15,7 @@ export default function ValueBound(props) {
 		setOxy([...props.bounds.oxy]);
 		setTemp([...props.bounds.temp]);
 		setSal([...props.bounds.sal]);
-	}, [props.bounds]);
+	}, [props.bounds, props.update]);
 
 	return (
 		<div className={styles.wrapper}>

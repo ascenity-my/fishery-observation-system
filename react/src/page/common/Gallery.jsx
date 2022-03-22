@@ -52,11 +52,11 @@ export default function GalleryPage() {
 	];
 
 	return <div className={styles.container}>
-		<div className={styles.header}>
+		{/* <div className={styles.header}>
 			<div className={styles.title}>
 				Gallery
 			</div>
-		</div>
+		</div> */}
         <Gallery
 			images={IMAGES}
 			enableImageSelection={false}

@@ -75,7 +75,6 @@ function DisplayReport(props) {
 						},
 					};
 				});
-
 				setAverages(a);
 			}
 		})();
@@ -106,9 +105,6 @@ function DisplayReport(props) {
 				} catch (e) {
 					console.log(e);
 				}
-
-				console.log(b);
-
 				setBounds(b);
 			}
 		})();
@@ -129,7 +125,7 @@ function DisplayReport(props) {
 				<StatWrapper>
 					<ValueBound 
 						bounds={bounds}
-
+						update={bounds.ph[1]}
 					/>
 				</StatWrapper>
 				<div className={styles.header}>

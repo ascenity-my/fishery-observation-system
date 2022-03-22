@@ -132,6 +132,11 @@ module.exports = {
                 });
             }
 
+            // sort by data.data.date
+            data.sort((a, b) => {
+                return new Date(b.data[0].date) - new Date(a.data[0].date);
+            });
+
             res.status(200).json(data);
         } catch (e) {
             res.status(500).json({ message: e.message });

@@ -24,8 +24,6 @@ const parseData = (payload) => {
             if (dir[1] === 'device' && dir[3] === 'data') {
                 const name = dir[2];
                 const data = parseData(message);
-        
-                console.log(name, data);
     
                 let device = await Device.findOne({ name });
     
