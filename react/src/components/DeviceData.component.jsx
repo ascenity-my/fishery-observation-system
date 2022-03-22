@@ -26,33 +26,39 @@ function DeviceData(props) {
 		);
 		const data = await response.json();
 
-		if (data && data.length) {
-			const oxyData = data.map((d) => ({
-				date: new Date(d.timestamp).getTime(),
-				value: d.values.oxy,
-			}));
-			const phData = data.map((d) => ({
-				date: new Date(d.timestamp).getTime(),
-				value: d.values.ph,
-			}));
-			const tempData = data.map((d) => ({
-				date: new Date(d.timestamp).getTime(),
-				value: d.values.temp,
-			}));
-			const salData = data.map((d) => ({
-				date: new Date(d.timestamp).getTime(),
-				value: d.values.sal,
-			}));
+		try {
+			if (data && data.length) {
+				const oxyData = data.map((d) => ({
+					date: new Date(d.timestamp).getTime(),
+					value: d.values.oxy,
+				}));
+				const phData = data.map((d) => ({
+					date: new Date(d.timestamp).getTime(),
+					value: d.values.ph,
+				}));
+				const tempData = data.map((d) => ({
+					date: new Date(d.timestamp).getTime(),
+					value: d.values.temp,
+				}));
+				const salData = data.map((d) => ({
+					date: new Date(d.timestamp).getTime(),
+					value: d.values.sal,
+				}));
+	
+				// setLastUpdate to dd/mm/yyyy hh:mm:ss
+				const l = new Date(data[0].timestamp).toLocaleString();
+	
+				setOxy(oxyData);
+				setPh(phData);
+				setTemp(tempData);
+				setSal(salData);
+				setLastUpdate(l);
+			}
 
-			// setLastUpdate to dd/mm/yyyy hh:mm:ss
-			const l = new Date(data[0].timestamp).toLocaleString();
-
-			setOxy(oxyData);
-			setPh(phData);
-			setTemp(tempData);
-			setSal(salData);
-			setLastUpdate(l);
+		} catch (e) {
+			console.log(e);
 		}
+
 	};
 
 	useEffect(() => {
