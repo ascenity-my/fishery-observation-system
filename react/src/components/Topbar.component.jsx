@@ -11,7 +11,7 @@ export default function Topbar() {
                         Super Intensive Prawn Farming Observation System (SIPFOS)
                     </div>
                 </div> */}
-				<div className={styles.user}>
+				{/* <div className={styles.user}>
 					<div className={styles.photo}></div>
 					<div className={styles.detail}>
 						<div className={styles.name}>
@@ -19,8 +19,12 @@ export default function Topbar() {
 						</div>
 						<div className={styles.title}>Pengarah</div>
 					</div>
-				</div>
+				</div> */}
 				<div className={styles["user-action"]}>
+					<div className={styles.logout}>
+						<LogoutIcon size={20} />
+						Login
+					</div>
 					<div className={styles.logout}>
 						<LogoutIcon size={20} />
 						Logout

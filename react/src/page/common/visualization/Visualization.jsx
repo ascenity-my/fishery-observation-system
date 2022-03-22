@@ -95,12 +95,17 @@ function DisplayReport(props) {
 
 				let b = bounds;
 
-				Object.keys(b).forEach((key) => {
-					b[key] = [
-						response[key][0].value,
-						response[key][1].value,
-					];
-				});
+				try {
+					Object.keys(b).forEach((key) => {
+						b[key] = [
+							response[key][0].value,
+							response[key][1].value,
+						];
+					});
+
+				} catch (e) {
+					console.log(e);
+				}
 
 				console.log(b);
 
