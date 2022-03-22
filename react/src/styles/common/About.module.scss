@@ -1,0 +1,112 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.companyBG{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+
+.contTitle{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-weight: 1000;
+    font-size: 20px;
+    align-items: center;
+    width: 300px;
+    padding: 20px;
+    
+}
+
+.content{
+    width: 900px;
+    padding: 20px;
+    text-align: justify;
+}
+
+.companyScope{
+    padding: 10px;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 25px;
+    justify-content: center;
+    align-content: space-around;
+}
+
+.objective{
+    background-color: rgba(219, 219, 253, 0.2);   
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.0px);
+    border: 1px solid rgba(255, 255, 255, 0.43);
+    padding: 20px 10px;
+    text-align: center;
+    height: 300px;
+    width: 350px;
+    
+}
+
+.mission{
+    background-color: rgba(219, 219, 253, 0.2);   
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.0px);
+    border: 1px solid rgba(255, 255, 255, 0.43);
+    padding: 20px 10px ;
+    text-align: center;
+    height: 300px;
+    width: 350px;
+}
+
+.vission{
+    background-color: rgba(219, 219, 253, 0.2);   
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.13);
+    backdrop-filter: blur(4.5px);
+    border: 1px solid rgba(255, 255, 255, 0.43);
+    padding: 20px 10px;
+    text-align: center;
+    height: 300px;
+    width: 350px;
+}
+
+.scopeTitle{
+    font-weight: 1000;
+    font-size: 20px;
+}
+
+.sContent{
+    padding-top: 20px;
+}
+
+.chartTitle{
+    width: 100%;
+    padding: 10px;
+    height: fit-content;
+    text-align: center;
+    background-color: rgba(54, 199, 243, 0.2);   
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.13);
+    backdrop-filter: blur(4.5px);
+    border: 1px solid rgba(255, 255, 255, 0.43);
+    border-radius: 16px;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.chart{
+    background-color: rgba(219, 219, 253, 0.2);   
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.13);
+    backdrop-filter: blur(4.5px);
+    border: 1px solid rgba(255, 255, 255, 0.43);
+    height: 500px;
+    width: 100%;
+}
