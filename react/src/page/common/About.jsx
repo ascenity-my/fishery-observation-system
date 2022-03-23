@@ -7,9 +7,9 @@ import chartOrg from "@balkangraph/orgchart.js";
 
 export default function About() {
 
-	chartOrg = (props) =>{
+	const chartOrg = (props) =>{
         if (typeof window === 'object') {
-            var chart = new chartOrg(document.getElementById("tree"), {
+            const chart = new chartOrg(document.getElementById("tree"), {
               nodeBinding: props.nodeBinding,
               nodes: props.nodes
             });
