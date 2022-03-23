@@ -4,6 +4,7 @@ import "dotenv/config";
 
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import useToken from "hooks/useToken";
 
@@ -33,6 +34,8 @@ function Home() {
 }
 
 function App() {
+	const { loginWithRedirect, logout, user, isAuthenticated, isLoading, error } = useAuth0();
+
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -66,6 +69,17 @@ function App() {
 			icon: 'FaTachometerAlt'
 		},
 	];
+
+	/* useEffect(() => {
+		console.log(user);
+	}, [user]); */
+	useEffect(() => {
+		if (!isLoading && !isAuthenticated) {
+			loginWithRedirect({
+				appState: { targetUrl: location.pathname }
+			});
+		}
+	}, [isLoading, isAuthenticated]);
 
 	const mqttConnect = () => {
 		try {
@@ -104,6 +118,10 @@ function App() {
 
 	useEffect(() => {
 		const validPaths = routes.map(p => p.path);
+
+		if (location.pathname === '/') {
+			navigate('/user/visualization');
+		}
 
 		if (!validPaths.includes(location.pathname)) {
 			navigate('/user/visualization', { replace: true });

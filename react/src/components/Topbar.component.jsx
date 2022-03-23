@@ -6,7 +6,7 @@ import styles from "styles/component/Topbar.module.scss";
 import { useEffect } from "react/cjs/react.production.min";
 
 export default function Topbar() {
-	const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
+	const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
 
 	return (
 		<div className={styles.wrapper}>
@@ -16,36 +16,42 @@ export default function Topbar() {
                         Super Intensive Prawn Farming Observation System (SIPFOS)
                     </div>
                 </div> */}
-				{isAuthenticated && (
+				{isAuthenticated && !isLoading && (
 					<div className={styles.user}>
-						<div className={styles.photo}></div>
+						<div className={styles.photo}>
+							<img src={user.picture} alt={user.name} />
+						</div>
 						<div className={styles.detail}>
-							<div className={styles.name}>
-								{user.name}
-							</div>
-							<div className={styles.title}>Pengarah</div>
+							<div className={styles.name}>{user.name}</div>
+							<div className={styles.title}>User</div>
 						</div>
 					</div>
 				)}
-				test : {isAuthenticated ? "Logout" : "Login"}
 				<div className={styles["user-action"]}>
-					{!isAuthenticated && (
-						<div className={styles.logout} onClick={() => {
-							loginWithRedirect();
-						}}>
+					{!isAuthenticated && !isLoading && (
+						<div
+							className={styles.logout}
+							onClick={() => {
+								loginWithRedirect();
+							}}
+						>
 							<LogoutIcon size={20} />
 							Login
 						</div>
 					)}
-					<div className={styles.logout} onClick={() => {
-						logout();
-					}}>
-						<LogoutIcon size={20} />
-						Logout
-					</div>
+					{isAuthenticated && !isLoading && (
+						<div
+							className={styles.logout}
+							onClick={() => {
+								logout();
+							}}
+						>
+							<LogoutIcon size={20} />
+							Logout
+						</div>
+					)}
 				</div>
 			</div>
-			
 		</div>
 	);
 }
