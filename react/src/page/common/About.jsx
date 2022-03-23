@@ -1,8 +1,22 @@
 
-
+import {  useEffect, useRef } from "react";
 import styles from "styles/common/About.module.scss";
 
+//organisation chart
+import chartOrg from "@balkangraph/orgchart.js";
+
 export default function About() {
+
+	/*const chart = new chartOrg(document.getElement("chartOrg"), {
+        nodeBinding: {
+            field_0: "name"
+        },
+        nodes: [
+            { id: 1, name: "Amber McKenzie" },
+            { id: 2, pid: 1, name: "Ava Field" },
+            { id: 3, pid: 1, name: "Peter Stevens" }
+        ]
+    });*/
 
 	return (
 		<div className={`${styles.container}`}>
@@ -87,6 +101,9 @@ export default function About() {
 			<div className={styles.chartTitle}>CARTA ORGANISASI</div>
 
 			<div className={styles.chart}>
+                <chartOrg>
+                   
+                </chartOrg>
 			</div>
 		</div>
 	);
