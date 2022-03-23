@@ -1,36 +1,81 @@
-
-import {  useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import styles from "styles/common/About.module.scss";
 
 //organisation chart
-import chartOrg from "@balkangraph/orgchart.js";
+import ChartOrg from "@balkangraph/orgchart.js";
+
+function OrgTree(props) {
+	const chart = useRef();
+	const divRef = useRef();
+
+	useEffect(() => {
+		if (!props.nodes) return;
+
+		chart.current = new ChartOrg(divRef.current, {
+			nodes: props.nodes,
+			nodeBinding: props.nodeBinding
+		});
+	}, []);
+
+	return <div ref={divRef} className={styles.orgTree} />;
+}
 
 export default function About() {
+	const data = [
+		{
+			id: 1,
+			name: "Denny Curtis",
+			title: "CEO",
+			img: "https://cdn.balkan.app/shared/2.jpg",
+		},
+		{
+			id: 2,
+			pid: 1,
+			name: "Ashley Barnett",
+			title: "Sales Manager",
+			img: "https://cdn.balkan.app/shared/3.jpg",
+		},
+		{
+			id: 3,
+			pid: 1,
+			name: "Caden Ellison",
+			title: "Dev Manager",
+			img: "https://cdn.balkan.app/shared/4.jpg",
+		},
+		{
+			id: 4,
+			pid: 2,
+			name: "Elliot Patel",
+			title: "Sales",
+			img: "https://cdn.balkan.app/shared/5.jpg",
+		},
+		{
+			id: 5,
+			pid: 2,
+			name: "Lynn Hussain",
+			title: "Sales",
+			img: "https://cdn.balkan.app/shared/6.jpg",
+		},
+		{
+			id: 6,
+			pid: 3,
+			name: "Tanner May",
+			title: "Developer",
+			img: "https://cdn.balkan.app/shared/7.jpg",
+		},
+		{
+			id: 7,
+			pid: 3,
+			name: "Fran Parsons",
+			title: "Developer",
+			img: "https://cdn.balkan.app/shared/8.jpg",
+		},
+	];
 
-	const chartOrg = (props) =>{
-        if (typeof window === 'object') {
-            const chart = new chartOrg(document.getElementById("tree"), {
-              nodeBinding: props.nodeBinding,
-              nodes: props.nodes
-            });
-          }
-          return (null)
-    }
-
-    const data = [
-        { id: 1, name: "Denny Curtis", title: "CEO", img: "https://cdn.balkan.app/shared/2.jpg" },
-        { id: 2, pid: 1, name: "Ashley Barnett", title: "Sales Manager", img: "https://cdn.balkan.app/shared/3.jpg" },
-        { id: 3, pid: 1, name: "Caden Ellison", title: "Dev Manager", img: "https://cdn.balkan.app/shared/4.jpg" },
-        { id: 4, pid: 2, name: "Elliot Patel", title: "Sales", img: "https://cdn.balkan.app/shared/5.jpg" },
-        { id: 5, pid: 2, name: "Lynn Hussain", title: "Sales", img: "https://cdn.balkan.app/shared/6.jpg" },
-        { id: 6, pid: 3, name: "Tanner May", title: "Developer", img: "https://cdn.balkan.app/shared/7.jpg" },
-        { id: 7, pid: 3, name: "Fran Parsons", title: "Developer", img: "https://cdn.balkan.app/shared/8.jpg" }
-    ]
-
-    var nodeBinding = {
-        field_0: "name",
-        img_0: "img"
-    }
+	let nodeBinding = {
+		field_0: "name",
+		img_0: "img",
+	};
 
 	return (
 		<div className={`${styles.container}`}>
@@ -114,12 +159,8 @@ export default function About() {
 
 			<div className={styles.chartTitle}>CARTA ORGANISASI</div>
 
-			<div className={styles.chart} id="tree">
-
-                <chartOrg 
-                    nodes={data}
-                    nodeBinding={nodeBinding}
-                />
+			<div className={styles.chart} >
+				<OrgTree nodes={data} nodeBinding={nodeBinding} />
 			</div>
 		</div>
 	);
