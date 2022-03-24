@@ -1,8 +1,109 @@
-
-
+import { useEffect, useRef, useState } from "react";
 import styles from "styles/common/About.module.scss";
 
+//organisation chart
+import ChartOrg from "@balkangraph/orgchart.js";
+
+function OrgTree(props) {
+	const chart = useRef();
+	const divRef = useRef();
+
+	const [ready, setReady] = useState(false);
+
+	ChartOrg.templates.edel = Object.assign({}, ChartOrg.templates.rony);
+
+	ChartOrg.templates.edel.field_0 = '<text data-width="165" style="font-size: 18px;" fill="#039BE5" x="90" y="40" text-anchor="middle">{val}</text>';
+	ChartOrg.templates.edel.field_1 = '<text data-width="165" style="font-size: 14px;" fill="#F57C00" x="90" y="70" text-anchor="middle">{val}</text>';
+
+	useEffect(() => {
+		if (!props.nodes) return;
+
+		chart.current = new ChartOrg(divRef.current, {
+			nodes: props.nodes,
+			nodeBinding: props.nodeBinding,
+			template: "edel"
+		});
+
+		setReady(true);
+	}, []);
+
+	/* useEffect(() => {
+		if (!ready) return;
+
+		const svg = divRef.current.querySelectorAll("svg");
+
+		console.log(divRef.current);
+		console.log(svg);
+
+		const nodes = svg.querySelectorAll('.node');
+
+		for (let node of nodes) {
+			const texts = node.querySelectorAll('text');
+
+			texts[1].attr('y', 100);
+		}
+	}, [ready]) */
+
+	return <div ref={divRef} className={styles.orgTree} />;
+}
+
 export default function About() {
+	const data = [
+		{
+			id: 1,
+			name: "Denny Curtis",
+			title: "CEO",
+			img: "https://cdn.balkan.app/shared/2.jpg",
+		},
+		{
+			id: 2,
+			pid: 1,
+			name: "Ashley Barnett",
+			title: "Sales Manager",
+			img: "https://cdn.balkan.app/shared/3.jpg",
+		},
+		{
+			id: 3,
+			pid: 1,
+			name: "Caden Ellison",
+			title: "Dev Manager",
+			img: "https://cdn.balkan.app/shared/4.jpg",
+		},
+		{
+			id: 4,
+			pid: 2,
+			name: "Elliot Patel",
+			title: "Sales",
+			img: "https://cdn.balkan.app/shared/5.jpg",
+		},
+		{
+			id: 5,
+			pid: 2,
+			name: "Lynn Hussain",
+			title: "Sales",
+			img: "https://cdn.balkan.app/shared/6.jpg",
+		},
+		{
+			id: 6,
+			pid: 3,
+			name: "Tanner May",
+			title: "Developer",
+			img: "https://cdn.balkan.app/shared/7.jpg",
+		},
+		{
+			id: 7,
+			pid: 3,
+			name: "Fran Parsons",
+			title: "Developer",
+			img: "https://cdn.balkan.app/shared/8.jpg",
+		},
+	];
+
+	let nodeBinding = {
+		field_0: "name",
+		field_1: "title",
+		img_0: "img",
+	};
 
 	return (
 		<div className={`${styles.container}`}>
@@ -86,7 +187,8 @@ export default function About() {
 
 			<div className={styles.chartTitle}>CARTA ORGANISASI</div>
 
-			<div className={styles.chart}>
+			<div className={styles.chart} >
+				<OrgTree nodes={data} nodeBinding={nodeBinding} />
 			</div>
 		</div>
 	);
