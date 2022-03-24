@@ -3,7 +3,6 @@ import { MdOutlineExitToApp as LogoutIcon } from "react-icons/md";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import styles from "styles/component/Topbar.module.scss";
-import { useEffect } from "react/cjs/react.production.min";
 
 export default function Topbar() {
 	const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();

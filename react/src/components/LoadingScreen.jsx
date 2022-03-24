@@ -5,16 +5,13 @@ import styles from "styles/component/LoadingScreen.module.scss";
 
 export default function LoadingScreen(props) {
     const { isAuthenticated } = useAuth0();
-
-	const [progress, setProgress] = useState(0);
 	const [text, setText] = useState("Loading...");
 
 	const bar = useRef();
 
 	useEffect(() => {
-		setProgress(props.progress);
 		setText(props.text);
-	}, [props.progress, props.text]);
+	}, [props.text]);
 
 	return (
 		<>

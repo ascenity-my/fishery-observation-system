@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "styles/common/About.module.scss";
 
 //organisation chart
@@ -7,8 +7,6 @@ import ChartOrg from "@balkangraph/orgchart.js";
 function OrgTree(props) {
 	const chart = useRef();
 	const divRef = useRef();
-
-	const [ready, setReady] = useState(false);
 
 	ChartOrg.templates.edel = Object.assign({}, ChartOrg.templates.rony);
 
@@ -22,8 +20,6 @@ function OrgTree(props) {
         + '<image clip-path="url(#ulaImg)" xlink:href="{val}" x="0" y="100" width="180" height="120"></image>';
 
 	useEffect(() => {
-		if (!props.nodes) return;
-
 		chart.current = new ChartOrg(divRef.current, {
 			mouseScrool: ChartOrg.action.scroll,
 			nodes: props.nodes,
@@ -31,8 +27,7 @@ function OrgTree(props) {
 			template: "edel",
 			enableSearch: false,
 		});
-
-		setReady(true);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	/* useEffect(() => {
