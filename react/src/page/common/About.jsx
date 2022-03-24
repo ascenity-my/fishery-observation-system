@@ -15,13 +15,21 @@ function OrgTree(props) {
 	ChartOrg.templates.edel.field_0 = '<text data-width="165" style="font-size: 18px;" fill="#039BE5" x="90" y="40" text-anchor="middle">{val}</text>';
 	ChartOrg.templates.edel.field_1 = '<text data-width="165" style="font-size: 14px;" fill="#F57C00" x="90" y="70" text-anchor="middle">{val}</text>';
 
+	ChartOrg.templates.edel.img_0 =
+        '<clipPath id="ulaImg">'
+        + '<circle cx="90" cy="140" r="80"></circle>'
+        + '</clipPath>'
+        + '<image clip-path="url(#ulaImg)" xlink:href="{val}" x="0" y="100" width="180" height="120"></image>';
+
 	useEffect(() => {
 		if (!props.nodes) return;
 
 		chart.current = new ChartOrg(divRef.current, {
+			mouseScrool: ChartOrg.action.scroll,
 			nodes: props.nodes,
 			nodeBinding: props.nodeBinding,
-			template: "edel"
+			template: "edel",
+			enableSearch: false,
 		});
 
 		setReady(true);
@@ -51,51 +59,58 @@ export default function About() {
 	const data = [
 		{
 			id: 1,
-			name: "Denny Curtis",
-			title: "CEO",
-			img: "https://cdn.balkan.app/shared/2.jpg",
+			name: "Dato' Hj. Mohd Azmi bin Mohd Amin",
+			title: "Pengerusi",
+			img: "/crew/mohd-azmi.png",
 		},
 		{
 			id: 2,
 			pid: 1,
-			name: "Ashley Barnett",
-			title: "Sales Manager",
-			img: "https://cdn.balkan.app/shared/3.jpg",
+			name: "Tuan Muhammad Shukri bin Shafie",
+			title: "Pengarah Projek",
+			img: "/crew/tuan-muhd-shukri.png",
 		},
 		{
 			id: 3,
 			pid: 1,
-			name: "Caden Ellison",
-			title: "Dev Manager",
-			img: "https://cdn.balkan.app/shared/4.jpg",
+			name: "Tuan Arriffin bin Md. Amin",
+			title: "Pengurus Pentadbiran",
+			img: "/crew/tuan-arriffin.png",
 		},
 		{
 			id: 4,
-			pid: 2,
-			name: "Elliot Patel",
-			title: "Sales",
-			img: "https://cdn.balkan.app/shared/5.jpg",
+			pid: 1,
+			name: "Tuan Syed Abdullah bin Syed Mahmud",
+			title: "Pengurusan Korporat",
+			img: "/crew/tuan-syed.png",
 		},
 		{
 			id: 5,
-			pid: 2,
-			name: "Lynn Hussain",
-			title: "Sales",
-			img: "https://cdn.balkan.app/shared/6.jpg",
+			pid: 1,
+			name: "Mohd Amirul Hakim",
+			title: "Pengurus Hatchery",
+			img: "/crew/mohd-amirul.png",
 		},
 		{
 			id: 6,
-			pid: 3,
-			name: "Tanner May",
-			title: "Developer",
-			img: "https://cdn.balkan.app/shared/7.jpg",
+			pid: 1,
+			name: "Muhammad Aqil",
+			title: "Pengurus Farm",
+			img: "/crew/mohd-aqil.png",
 		},
 		{
 			id: 7,
-			pid: 3,
-			name: "Fran Parsons",
-			title: "Developer",
-			img: "https://cdn.balkan.app/shared/8.jpg",
+			pid: 1,
+			name: "Atiqah Nabilah",
+			title: "Akaun",
+			img: "/crew/atiqah.png",
+		},
+		{
+			id: 8,
+			pid: 1,
+			name: "Nur Ayessah",
+			title: "Admin",
+			img: "/crew/ayessah.png",
 		},
 	];
 
