@@ -25,6 +25,8 @@ import GalleryPage from "page/common/Gallery";
 import PondDevices from "page/common/facilities/PondDevices";
 import Visualization from "page/common/visualization/Visualization";
 
+import LoadingScreen from "components/LoadingScreen";
+
 function Home() {
 	return (
 		<header className="App-header">
@@ -130,6 +132,7 @@ function App() {
 
 	return (
 		<div className="App">
+			<LoadingScreen />
 			<Routes>
 				<Route path="/user" element={<UserLayout mqtt={mqttData} routes={routes}/>}>
 					<Route index element={<Home />} />
