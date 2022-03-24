@@ -32,6 +32,17 @@
 @media screen and (max-width: 757px) {
     .header {
         margin-bottom: 2rem;
+
+        width: 100%;
+        flex-direction: column;
+
+        gap: 20px;
+
+        div {
+            flex: 1 1 100%;
+
+            width: 100%;
+        }
     }
 
     .title {
