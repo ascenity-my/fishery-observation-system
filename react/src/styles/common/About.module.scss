@@ -128,3 +128,16 @@
     height: 500px;
     width: 100%;
 }
+
+svg node text:nth-child(2) {
+    margin: 10px 0;
+}
+
+[data-n-id] rect {
+    filter: none
+ }
+
+[data-n-id] rect:hover {
+    filter: drop-shadow( 4px 5px 5px #244bcc7a);
+    transition: all 0.2s;
+ }
