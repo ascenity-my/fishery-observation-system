@@ -132,10 +132,31 @@ module.exports = {
                 });
             }
 
-            // sort by data.data.date
+            /* // sort by data.data.date
             data.sort((a, b) => {
                 return new Date(b.data[0].date) - new Date(a.data[0].date);
-            });
+            }); */
+
+            res.status(200).json(data);
+        } catch (e) {
+            res.status(500).json({ message: e.message, stack: e.stack });
+        }
+    },
+    getOneLatestAverage: async (req, res) => {
+        try {
+            const devices = await Device.find();
+
+            const data = [];
+
+            for (let i = 0; i < devices.length; i++) {
+                const deviceData = await Data.getLatestAverage(devices[i]._id);
+
+                data.push({
+                    device_id: devices[i]._id,
+                    device_name: devices[i].name,
+                    data: deviceData
+                });
+            }
 
             res.status(200).json(data);
         } catch (e) {

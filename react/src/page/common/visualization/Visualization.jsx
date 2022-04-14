@@ -46,7 +46,7 @@ function DisplayReport(props) {
 	useEffect(() => {
 		(async () => {
 			let request = await fetch(
-				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/average/hourly/all?total=1`,
+				`${process.env.REACT_APP_SERVER_HOSTNAME}/api/device/data/average/hourly/one`,
 				{
 					method: "GET",
 					headers: {
@@ -57,17 +57,21 @@ function DisplayReport(props) {
 
 			if (request.status === 200) {
 				const response = await request.json();
-
+				
 				// replace null values with -, round to 2 decimal places
 				const a = response.map((d) => {
+
 					const { oxy, ph, temp, sal, date } = d.data[0];
 
-					const dateStr = new Date(date).toLocaleString();
+					const dateStr = new Date(date);
+
+					// convert date to local time
+					dateStr.setMinutes(dateStr.getMinutes() - dateStr.getTimezoneOffset());
 
 					return {
 						...d,
 						data: {
-							date: dateStr,
+							date: `${dateStr.getMonth() + 1}/${dateStr.getDate()}/${dateStr.getFullYear()}, ${dateStr.getHours()}:00 ${dateStr.getHours() >= 12 ? "PM" : "AM"}`,
 							oxy: oxy ? oxy.toFixed(2) : "-",
 							ph: ph ? ph.toFixed(2) : "-",
 							temp: temp ? temp.toFixed(2) : "-",

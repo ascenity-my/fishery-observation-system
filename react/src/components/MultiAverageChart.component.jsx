@@ -141,13 +141,12 @@ function SimpleLineChart(props) {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				query: {
-					total: 20
-				}
 			});
 
 			if (request.status === 200) {
 				const response = await request.json();
+
+				console.log(response);
 
 				for (let x = 0; x < response.length; x++) {
 					let s = response[x].device_name;
@@ -155,7 +154,11 @@ function SimpleLineChart(props) {
 
 					setSeriesList([...seriesList, series]);
 					series.data.setAll(response[x].data.map(d => {
-						d.date = new Date(d.date).getTime();
+						// convert date to local time
+						let date = new Date(d.date);
+						date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+						
+						d.date = date.getTime();
 
 						return d;
 					}));

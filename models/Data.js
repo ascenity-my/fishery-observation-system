@@ -54,16 +54,79 @@ DataSchema.statics.getAverage = async function (device_id, start, end) {
     };
 };
 
+DataSchema.statics.getLatestAverage = async function (device_id) {
+    const data = await this.aggregate([
+        {
+            $match: {
+                device_id: Types.ObjectId(device_id),
+            },
+        },
+        {
+            $group: {
+                _id: {
+                    year: { $year: "$timestamp" },
+                    month: { $month: "$timestamp" },
+                    day: { $dayOfMonth: "$timestamp" },
+                    hour: { $hour: "$timestamp" },
+                },
+                values: { $push: "$values" },
+            },
+        },
+        {
+            $sort: {
+                _id: -1,
+            },
+        },
+    ]).limit(1);
+
+    if (!data || data.length === 0) {
+        return [];
+    }
+
+    const oxy = data.map(d => d.values.map(v => v.oxy));
+    const ph = data.map(d => d.values.map(v => v.ph));
+    const temp = data.map(d => d.values.map(v => v.temp));
+    const sal = data.map(d => d.values.map(v => v.sal));
+
+    const oxy_avg = oxy.map(d => d.reduce((a, b) => a + b, 0) / d.length);
+    const ph_avg = ph.map(d => d.reduce((a, b) => a + b, 0) / d.length);
+    const temp_avg = temp.map(d => d.reduce((a, b) => a + b, 0) / d.length);
+    const sal_avg = sal.map(d => d.reduce((a, b) => a + b, 0) / d.length);
+
+    const averages = [];
+    for (let i = 0; i < oxy_avg.length; i++) {
+        const date = new Date(data[i]._id.year, data[i]._id.month - 1, data[i]._id.day, data[i]._id.hour);
+
+        averages.push({
+            date: date,
+            oxy: oxy_avg[i],
+            ph: ph_avg[i],
+            temp: temp_avg[i],
+            sal: sal_avg[i],
+            count: data[i].values.length,
+        });
+    }
+
+    // invert the array
+    return averages.reverse();
+}
+
 DataSchema.statics.getLatestAverages = async function (device_id, total) {
     // using aggregation
     // group all latest data hourly
     // calculate average for each group
     // return the latest total number of averages
-
+    
     const data = await this.aggregate([
         {
             $match: {
                 device_id: Types.ObjectId(device_id),
+
+                 // data from 0000 to 2359
+                timestamp: {
+                    $gte: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0),
+                    $lte: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59),
+                },
             },
         },
         {
