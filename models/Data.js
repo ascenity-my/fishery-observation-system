@@ -124,7 +124,7 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
 
                  // data from 0000 to 2359
                 timestamp: {
-                    $gte: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0),
+                    $gte: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7, 0, 0, 0),
                     $lte: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59),
                 },
             },
