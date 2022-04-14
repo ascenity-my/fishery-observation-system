@@ -53,7 +53,7 @@ function SimpleLineChart(props) {
 			.get("tooltip")
 			.label.set(
 				"text",
-				"[bold]{name}[/]\n{valueX.formatDate()}: {valueY}"
+				"[bold]{name}[/]\n{valueY}"
 			);
 
 		series.appear(1000);
