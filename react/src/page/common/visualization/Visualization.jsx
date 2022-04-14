@@ -65,8 +65,8 @@ function DisplayReport(props) {
 
 					const dateStr = new Date(date);
 
-					// convert date to local time
-					dateStr.setMinutes(dateStr.getMinutes() - dateStr.getTimezoneOffset());
+					/* // convert date to local time
+					dateStr.setMinutes(dateStr.getMinutes() - dateStr.getTimezoneOffset()); */
 
 					return {
 						...d,

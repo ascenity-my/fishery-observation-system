@@ -156,7 +156,7 @@ function SimpleLineChart(props) {
 					series.data.setAll(response[x].data.map(d => {
 						// convert date to local time
 						let date = new Date(d.date);
-						date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+						/* date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); */
 						
 						d.date = date.getTime();
 
