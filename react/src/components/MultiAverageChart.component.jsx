@@ -41,7 +41,7 @@ function SimpleLineChart(props) {
 		series.bullets.push(function () {
 			return am5.Bullet.new(mainRoot.current, {
 				sprite: am5.Circle.new(mainRoot.current, {
-					radius: 4,
+					radius: 1,
 					fill: series.get("fill"),
 				}),
 			});

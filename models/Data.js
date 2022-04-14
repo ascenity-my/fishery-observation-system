@@ -145,7 +145,7 @@ DataSchema.statics.getLatestAverages = async function (device_id, total) {
                 _id: -1,
             },
         },
-    ]).limit(parseInt(total) || 24);
+    ]);
 
     if (!data || data.length === 0) {
         return [];
