@@ -22,7 +22,7 @@ export default function Topbar() {
 						</div>
 						<div className={styles.detail}>
 							<div className={styles.name}>{user.name}</div>
-							<div className={styles.title}>User</div>
+							{/* <div className={styles.title}>User</div> */}
 						</div>
 					</div>
 				)}
@@ -46,7 +46,7 @@ export default function Topbar() {
 							}}
 						>
 							<LogoutIcon size={20} />
-							Logout
+							<span>Logout</span>
 						</div>
 					)}
 				</div>
