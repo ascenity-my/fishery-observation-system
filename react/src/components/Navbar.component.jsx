@@ -44,6 +44,7 @@ export default function Navbar(props) {
 
 	return (
 		<nav className={styles.nav}>
+			<div className={styles.overlayz}></div>
 			<div className={styles.logo}></div>
 			<div className={styles.links}>
 				{routes.map((item, index) => (

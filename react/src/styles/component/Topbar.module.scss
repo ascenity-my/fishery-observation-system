@@ -3,13 +3,11 @@
 .bar {
     height: fit-content;
 
-    padding: 20px 10px;
+    padding: 10px 20px;
 
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-
-    gap: 50px;
+    justify-content: space-between;
 
     background: #2961E2;
 
@@ -82,13 +80,12 @@
     align-items: center;
 
     .photo {
-        flex: 0 0 50px;
 
         background: white;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
 
-        border-radius: 7px;
+        border-radius: 50%;
         overflow: hidden;
 
         img {
@@ -103,6 +100,7 @@
 
         .name {
             text-transform: uppercase;
+            font-size: 14px;
         }
 
         .title {
@@ -113,18 +111,27 @@
 
 
 @media screen and (max-width: 757px) {
+    .bar {
+        padding: 15px 10px;
+    }
+
     .title {
         font-size: 12px;
     }
 
     .photo {
-        flex: 0 0 40px !important;
+        top: 10px !important;
+        left: 20px !important;
 
-        width: 50px !important;
-        height: 50px !important;
+        width: 40px !important;
+        height: 40px !important;
     }
 
     .name {
         font-size: 12px;
+    }
+
+    .logout span {
+        display: none;
     }
 }
