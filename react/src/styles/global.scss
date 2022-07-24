@@ -92,6 +92,10 @@ select {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+.orgchart {
+  background-image: none !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
