@@ -2,6 +2,7 @@ const mqtt = require('../services/mqtt.service.js');
 
 const Device = require('../models/Device.js');
 const Data = require('../models/Data.js');
+const Log = require('../models/Log.js');
 
 const parseData = (payload) => {
     let res = {};
@@ -12,6 +13,26 @@ const parseData = (payload) => {
     });
 
     return res;
+};
+
+const logSignalStrenght = (device, payload) => {
+    if (payload.rssi) {
+        const data = {
+            device_id: device._id,
+            remark: `${device.name} signal strength: ${payload.rssi}`,
+            timestamp: Date.now(),
+            values: [
+                {
+                    label: 'rssi',
+                    value: payload.rssi,
+                },
+            ]
+        };
+
+        return Log.create(data);
+    }
+
+    return Promise.resolve();
 };
 
 (async () => {
@@ -49,6 +70,9 @@ const parseData = (payload) => {
     
                 // notify the frontend to request for device updates
                 client.publish('sasaqua/server/state', "UPDATE:" + name);
+
+                // log signal strength (if available)
+                await logSignalStrenght(device, data);
             }
     
         } catch(e) {
