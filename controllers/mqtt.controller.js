@@ -72,7 +72,7 @@ const logSignalStrenght = (device, payload) => {
                 client.publish('sasaqua/server/state', "UPDATE:" + name);
 
                 // log signal strength (if available)
-                /* await logSignalStrenght(device, data); */
+                await logSignalStrenght(device, data);
             }
     
         } catch(e) {
