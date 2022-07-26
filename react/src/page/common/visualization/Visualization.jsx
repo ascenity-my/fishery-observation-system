@@ -1,20 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense, lazy } from "react";
 import { useOutletContext } from "react-router-dom";
 
 // components
-import Table from "components/Table.component";
+/* import Table from "components/Table.component";
 import TopList from "components/TopList.component";
 import DateAxisLineChart from "components/DateAxisLineChart.component";
 import MultiAverageChart from "components/MultiAverageChart.component";
 import StatWrapper from "components/StatWrapper.component";
 import StatNumber from "components/StatNumber.component";
-import ValueBound from "components/ValueBound.component";
+import ValueBound from "components/ValueBound.component"; */
 
 import styles from "styles/common/facilities/PondDevices.module.scss";
 import exStyles from "styles/common/visualization/Visualization.module.scss";
+
+//const Table = lazy(() => import('components/Table.component'));
+//const TopList = lazy(() => import('components/TopList.component'));
+//const DateAxisLineChart = lazy(() => import('components/DateAxisLineChart.component'));
+const MultiAverageChart = lazy(() => import('components/MultiAverageChart.component'));
+const StatWrapper = lazy(() => import('components/StatWrapper.component'));
+//const StatNumber = lazy(() => import('components/StatNumber.component'));
+const ValueBound = lazy(() => import('components/ValueBound.component'));
 
 function DisplayReport(props) {
 	const [averages, setAverages] = useState([]);
@@ -57,7 +65,7 @@ function DisplayReport(props) {
 
 			if (request.status === 200) {
 				const response = await request.json();
-				
+
 				// replace null values with -, round to 2 decimal places
 				const a = response.map((d) => {
 
@@ -126,12 +134,14 @@ function DisplayReport(props) {
 						</div>
 					</div>
 				</div>
-				<StatWrapper>
-					<ValueBound 
-						bounds={bounds}
-						update={bounds.ph[1]}
-					/>
-				</StatWrapper>
+				<Suspense >
+					<StatWrapper>
+						<ValueBound
+							bounds={bounds}
+							update={bounds.ph[1]}
+						/>
+					</StatWrapper>
+				</Suspense>
 				<div className={styles.header}>
 					<div className={styles.text}>
 						<div className={styles.title}>Parameter averages</div>
@@ -190,11 +200,13 @@ function DisplayReport(props) {
 					</div>
 					<div className={exStyles.item}>
 						<div className={exStyles.chart}>
-							<MultiAverageChart
-								label="averagePH"
-								height="300px"
-								field="ph"
-							/>
+							<Suspense>
+								<MultiAverageChart
+									label="averagePH"
+									height="300px"
+									field="ph"
+								/>
+							</Suspense>
 						</div>
 					</div>
 					<div className={styles.header}>
@@ -210,11 +222,13 @@ function DisplayReport(props) {
 					</div>
 					<div className={exStyles.item}>
 						<div className={exStyles.chart}>
-							<MultiAverageChart
-								label="averageDO"
-								height="300px"
-								field="oxy"
-							/>
+							<Suspense>
+								<MultiAverageChart
+									label="averageDO"
+									height="300px"
+									field="oxy"
+								/>
+							</Suspense>
 						</div>
 					</div>
 					<div className={styles.header}>
@@ -230,11 +244,14 @@ function DisplayReport(props) {
 					</div>
 					<div className={exStyles.item}>
 						<div className={exStyles.chart}>
-							<MultiAverageChart
-								label="averageTemp"
-								height="300px"
-								field="temp"
-							/>
+							<Suspense>
+								<MultiAverageChart
+									label="averageTemp"
+									height="300px"
+									field="temp"
+								/>
+
+							</Suspense>
 						</div>
 					</div>
 					<div className={styles.header}>
@@ -250,11 +267,14 @@ function DisplayReport(props) {
 					</div>
 					<div className={exStyles.item}>
 						<div className={exStyles.chart}>
-							<MultiAverageChart
-								label="averageSal"
-								height="300px"
-								field="sal"
-							/>
+							<Suspense>
+
+								<MultiAverageChart
+									label="averageSal"
+									height="300px"
+									field="sal"
+								/>
+							</Suspense>
 						</div>
 					</div>
 				</div>
