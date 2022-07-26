@@ -2,6 +2,8 @@
 /* eslint-disable no-unused-vars */
 import "dotenv/config";
 
+import { Suspense, lazy } from "react";
+
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -13,7 +15,7 @@ import mqtt from "mqtt";
 import logo from "./logo.svg";
 import "styles/App.module.scss";
 
-import Login from "page/common/Login";
+/* import Login from "page/common/Login";
 
 import UserLayout from "layouts/User.layout";
 import AdminLayout from "layouts/Admin.layout";
@@ -25,7 +27,22 @@ import GalleryPage from "page/common/Gallery";
 import PondDevices from "page/common/facilities/PondDevices";
 import Visualization from "page/common/visualization/Visualization";
 
+import LoadingScreen from "components/LoadingScreen"; */
+
 import LoadingScreen from "components/LoadingScreen";
+
+const Login = lazy(() => import("page/common/Login"));
+
+const UserLayout = lazy(() => import("layouts/User.layout"));
+const AdminLayout = lazy(() => import("layouts/Admin.layout"));
+
+const HomePage = lazy(() => import("page/common/Home"));
+const AboutPage = lazy(() => import("page/common/About"));
+const GalleryPage = lazy(() => import("page/common/Gallery"));
+
+const PondDevices = lazy(() => import("page/common/facilities/PondDevices"));
+const Visualization = lazy(() => import("page/common/visualization/Visualization"));
+
 
 function Home() {
 	return (
@@ -46,20 +63,20 @@ function App() {
 
 	const routes = [
 		/* {
-            path: '/user/home',
-            name: 'Home',
-            icon: 'FaHome'
-        }, */
+			path: '/user/home',
+			name: 'Home',
+			icon: 'FaHome'
+		}, */
 		{
-            path: '/user/about',
-            name: 'About',
-            icon: 'FaInfo'
-        },
+			path: '/user/about',
+			name: 'About',
+			icon: 'FaInfo'
+		},
 		{
-            path: '/user/gallery',
-            name: 'Gallery',
-            icon: 'FaImage'
-        },
+			path: '/user/gallery',
+			name: 'Gallery',
+			icon: 'FaImage'
+		},
 		{
 			path: "/user/visualization",
 			name: "Visualization",
@@ -132,21 +149,22 @@ function App() {
 
 	return (
 		<div className="App">
-			<LoadingScreen />
-			<Routes>
-				<Route path="/user" element={<UserLayout mqtt={mqttData} routes={routes}/>}>
-					<Route index element={<Home />} />
+			<Suspense fallback={<LoadingScreen />}>
+				<Routes>
+					<Route path="/user" element={<UserLayout mqtt={mqttData} routes={routes} />}>
+						<Route index element={<Home />} />
 
-					<Route path="home" element={<HomePage />} />
-					<Route path="about" element={<AboutPage />} />
-					<Route path="gallery" element={<GalleryPage />} />
-					<Route path="visualization" element={<Visualization />} />
-					<Route path="facilities" element={<PondDevices />} />
-				</Route>
-				<Route path="/admin" element={<AdminLayout />}>
-					<Route index element={<Home />} />
-				</Route>
-			</Routes>
+						<Route path="home" element={<HomePage />} />
+						<Route path="about" element={<AboutPage />} />
+						<Route path="gallery" element={<GalleryPage />} />
+						<Route path="visualization" element={<Visualization />} />
+						<Route path="facilities" element={<PondDevices />} />
+					</Route>
+					<Route path="/admin" element={<AdminLayout />}>
+						<Route index element={<Home />} />
+					</Route>
+				</Routes>
+			</Suspense>
 		</div>
 	);
 }

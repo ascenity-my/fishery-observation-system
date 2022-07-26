@@ -1,13 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense, lazy } from "react";
 
 import styles from "styles/component/DeviceData.module.scss";
-
+/* 
 import SimpleLineChart from "components/SimpleLineChart";
 import StatWrapper from "components/StatWrapper.component";
-import StatNumber from "components/StatNumber.component";
+import StatNumber from "components/StatNumber.component"; */
+
+const SimpleLineChart = lazy(() => import("components/SimpleLineChart"));
+const StatWrapper = lazy(() => import("components/StatWrapper.component"));
+const StatNumber = lazy(() => import("components/StatNumber.component"));
 
 function DeviceData(props) {
 	const [name, setName] = useState("");
@@ -44,10 +48,10 @@ function DeviceData(props) {
 					date: new Date(d.timestamp).getTime(),
 					value: d.values.sal,
 				}));
-	
+
 				// setLastUpdate to dd/mm/yyyy hh:mm:ss
 				const l = new Date(data[0].timestamp).toLocaleString();
-	
+
 				setOxy(oxyData);
 				setPh(phData);
 				setTemp(tempData);
@@ -63,7 +67,7 @@ function DeviceData(props) {
 
 	useEffect(() => {
 		console.log(props.mqtt);
-		
+
 		if (!props.mqtt) return;
 
 		if (props.mqtt.topic === "sasaqua/server/state") {
@@ -115,12 +119,14 @@ function DeviceData(props) {
 								{ph.length && ph[0].value}
 							</div>
 						</div>
-						<SimpleLineChart
-							data={ph}
-							/* unique label string generate */
-							label={`${Date.now()}${Math.random()}`}
-							height={props.chartHeight}
-						/>
+						<Suspense fallback={<div>Loading...</div>}>
+							<SimpleLineChart
+								data={ph}
+								/* unique label string generate */
+								label={`${Date.now()}${Math.random()}`}
+								height={props.chartHeight}
+							/>
+						</Suspense>
 					</div>
 					<div className={styles.chart}>
 						<div className={styles.label}>
@@ -129,12 +135,14 @@ function DeviceData(props) {
 								{oxy.length && oxy[0].value}
 							</div>
 						</div>
-						<SimpleLineChart
-							data={oxy}
-							/* unique label string generate */
-							label={`${Date.now()}${Math.random()}`}
-							height={props.chartHeight}
-						/>
+						<Suspense fallback={<div>Loading...</div>}>
+							<SimpleLineChart
+								data={oxy}
+								/* unique label string generate */
+								label={`${Date.now()}${Math.random()}`}
+								height={props.chartHeight}
+							/>
+						</Suspense>
 					</div>
 					<div className={styles.chart}>
 						<div className={styles.label}>
@@ -143,14 +151,16 @@ function DeviceData(props) {
 								{temp.length && temp[0].value}
 							</div>
 						</div>
-						<SimpleLineChart
-							data={temp}
-							/* unique label string generate */
-							label={`${Date.now()}${Math.random()}`}
-							height={props.chartHeight}
-						/>
+						<Suspense fallback={<div>Loading...</div>}>
+							<SimpleLineChart
+								data={temp}
+								/* unique label string generate */
+								label={`${Date.now()}${Math.random()}`}
+								height={props.chartHeight}
+							/>
+						</Suspense>
 					</div>
-					
+
 					<div className={styles.chart}>
 						<div className={styles.label}>
 							<div className={styles.name}>Salinity</div>
@@ -158,43 +168,47 @@ function DeviceData(props) {
 								{sal.length && sal[0].value}
 							</div>
 						</div>
-						<SimpleLineChart
-							data={sal}
-							/* unique label string generate */
-							label={`${Date.now()}${Math.random()}`}
-							height={props.chartHeight}
-						/>
+						<Suspense fallback={<div>Loading...</div>}>
+							<SimpleLineChart
+								data={sal}
+								/* unique label string generate */
+								label={`${Date.now()}${Math.random()}`}
+								height={props.chartHeight}
+							/>
+						</Suspense>
 					</div>
 				</div>
 
 				<div className={styles.number}>
-					<StatNumber
-						title="pH"
-						value={ph.length && ph[0].value}
-						unit="pH"
-						icon="BsDropletHalf"
-						from="Bs"
-					/>
-					<StatNumber
-						title="Dissolved Oxygen"
-						value={oxy.length && oxy[0].value}
-						unit="mg/L"
-						icon="SiOxygen"
-						from="Si"
-					/>
-					<StatNumber
-						title="Temperature"
-						value={temp.length && temp[0].value}
-						unit="°C"
-						icon="FaTemperatureLow"
-					/>
-					<StatNumber
-						title="Salinity"
-						value={sal.length && sal[0].value}
-						unit="ppt"
-						icon="BiWater"
-						from="Bi"
-					/>
+					<Suspense fallback={<div>Loading...</div>}>
+						<StatNumber
+							title="pH"
+							value={ph.length && ph[0].value}
+							unit="pH"
+							icon="BsDropletHalf"
+							from="Bs"
+						/>
+						<StatNumber
+							title="Dissolved Oxygen"
+							value={oxy.length && oxy[0].value}
+							unit="mg/L"
+							icon="SiOxygen"
+							from="Si"
+						/>
+						<StatNumber
+							title="Temperature"
+							value={temp.length && temp[0].value}
+							unit="°C"
+							icon="FaTemperatureLow"
+						/>
+						<StatNumber
+							title="Salinity"
+							value={sal.length && sal[0].value}
+							unit="ppt"
+							icon="BiWater"
+							from="Bi"
+						/>
+					</Suspense>
 				</div>
 			</div>
 		</div>
