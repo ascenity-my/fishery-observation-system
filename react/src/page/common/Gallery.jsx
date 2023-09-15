@@ -4,7 +4,7 @@ import styles from "styles/common/Gallery.module.scss";
 
 export default function GalleryPage() {
 	const IMAGES = [
-		{
+		/* {
 			src: "/gallery/img-01.jpeg",
 			thumbnail:
 				"/gallery/img-01.jpeg",
@@ -47,7 +47,7 @@ export default function GalleryPage() {
 			thumbnailWidth: 200,
 			thumbnailHeight: 300,
 			caption: "Pond image #5",
-		},
+		}, */
 		
 	];
 
